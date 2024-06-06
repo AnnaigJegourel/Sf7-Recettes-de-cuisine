@@ -3,3 +3,8 @@ controllers:
         path: ../src/Controller/
         namespace: App\Controller
     type: attribute
+
+# On peut gérer les routes ici
+# home:
+#    path: /
+#    controller: App\Controller\HomeController::index
