@@ -30,7 +30,7 @@ class Recipe
     private ?\DateTimeImmutable $updatedAt = null;
 
     #[ORM\Column(nullable: true)]
-    private ?int $duration = null;
+    private ?int $duration;
 
     public function getId(): ?int
     {

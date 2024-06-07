@@ -6,7 +6,19 @@ syntaxe raccourcie#}
 {% block title "Toutes les recettes !"%}
 
 {% block body %}
-    Voici les recettes disponibles en base de données :
+    Voici les recettes qui durent moins de 10 min :
+    <ul>
+        {% for recipe in recipes10 %}
+        <li>
+            {#  en appelant le getter
+            <a href={{ url('recipe.show', {id: recipe.getId, slug: recipe.getSlug}) }}>{{ recipe.getTitle() }}</a> #}
+            {# sans appeler le getter (le système cherche le getter)#}
+            <a href={{ url('recipe.show', {id: recipe.id, slug: recipe.slug}) }}>{{ recipe.title() }}</a>
+        </li>
+        {% endfor %}
+    </ul>
+
+    Voici toutes les recettes disponibles en base de données :
     <ul>
         {% for recipe in recipes %}
         <li>

@@ -16,9 +16,11 @@ class RecipeController extends AbstractController
     {
         $recipes = $repository->findAll();
         //dd($recipes);
+        $recipes10 = $repository->findWithDurationLowerThan(10);
 
         return $this->render('recipe/index.html.twig', [
-            'recipes' => $recipes
+            'recipes' => $recipes,
+            'recipes10' => $recipes10
         ]);
 
         // code donné par défaut
