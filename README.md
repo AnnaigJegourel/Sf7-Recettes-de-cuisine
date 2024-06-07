@@ -4,7 +4,12 @@ Découverte de Symfony 7 en suivant le tuto / la formation YouTube de Grafikart
 
 <https://www.youtube.com/watch?v=1Fz6-Gkou-U&list=PLjwdMgw5TTLXuvlGqP18gbJCYVg7y6Fig&index=4>
 
-Les différents thèmes correspondent aux différentes pull requests (sauf les 2 premiers) :
+Les différents thèmes correspondent aux différentes pull requests (sauf les 2 premiers).
+Voir le détail des commit constituant chaque pull request : sur la branche dev.
+
+Voir le dossier documentation/ pour plus de détails.
+
+## Thèmes
 
 - Installation
 - Premières pages & contrôleures
@@ -33,7 +38,3 @@ Les différents thèmes correspondent aux différentes pull requests (sauf les 2
 - Internationalisation
 - Hébergement Infomaniak
 - Hébergement O2Switch
-
-Voir le détail des commit constituant chaque pull request : sur la branche dev.
-
-Voir le dossier documentation/ pour plus de détails.
