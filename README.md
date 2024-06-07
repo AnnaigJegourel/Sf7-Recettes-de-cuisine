@@ -9,11 +9,24 @@ Voir le détail des commit constituant chaque pull request : sur la branche dev.
 
 Voir le dossier documentation/ pour plus de détails.
 
+## Lien intéressants
+
+### Twig
+
+<https://twig.symfony.com/doc/3.x/>
+
+<https://symfony.com/doc/current/reference/configuration/twig.html>
+
+<https://symfony.com/doc/current/reference/twig_reference.html#functions>
+
+### Autres
+
 ## Thèmes
 
-- Installation
-- Premières pages & contrôleures
-- Twig + Boostrap
+1. Installation
+2. Premières pages & contrôleures
+3. Twig + Boostrap
+
 - Doctrine
 - Formulaires
 - Validation

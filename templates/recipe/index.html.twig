@@ -1,20 +1,20 @@
-{% extends 'base.html.twig' %}
+{% extends "base.html.twig" %}
 
-{% block title %}Hello RecipeController!{% endblock %}
+{# syntaxe complète
+{% block title %}Toutes les recettes{% endblock %}
+syntaxe raccourcie#}
+{% block title "Toutes les recettes !"%}
 
 {% block body %}
-<style>
-    .example-wrapper { margin: 1em auto; max-width: 800px; width: 95%; font: 18px/1.5 sans-serif; }
-    .example-wrapper code { background: #F5F5F5; padding: 2px 6px; }
-</style>
-
-<div class="example-wrapper">
-    <h1>Hello {{ controller_name }}! ✅</h1>
-
-    This friendly message is coming from:
+    Voici les recettes disponibles :
     <ul>
-        <li>Your controller at <code>C:/Web/Symfony/Sf7-Recettes-de-cuisine/src/Controller/RecipeController.php</code></li>
-        <li>Your template at <code>C:/Web/Symfony/Sf7-Recettes-de-cuisine/templates/recipe/index.html.twig</code></li>
+        <li>
+            <a href={{ url('recipe.show', {id:32, slug:'pate-bol'}) }}>Pâtes bolo (url complète)</a>
+        </li>
+        <li>
+            <a href={{ path('recipe.show', {id:32, slug:'pate-bol'}) }}>Pâtes bolo (url avec seulement le chemin)</a>
+        </li>
     </ul>
-</div>
+
+    Voici le dump de app.current_route directement dans Twig : {{ dump(app.current_route) }} </li>
 {% endblock %}

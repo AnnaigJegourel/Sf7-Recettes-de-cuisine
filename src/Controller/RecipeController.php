@@ -3,7 +3,6 @@
 namespace App\Controller;
 
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
-use Symfony\Bundle\MakerBundle\Str;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
@@ -11,11 +10,11 @@ use Symfony\Component\Routing\Attribute\Route;
 
 class RecipeController extends AbstractController
 {
-    #[Route('/recette', name: 'recipe.index')]
+    #[Route('/recettes', name: 'recipe.index')]
     public function index(Request $request): Response
     {
 
-        return new Response('Recettes');
+        return $this->render('recipe/index.html.twig');
 
         // code donné par défaut
 /*         return $this->render('recipe/index.html.twig', [
@@ -23,13 +22,24 @@ class RecipeController extends AbstractController
         ]);
  */    }
 
- #[Route('/recette/{slug}-{id}', name: 'recipe.show', requirements: ['id' => '\d+', 'slug' => '[a-z0-9-]+'])]
+ #[Route('/recettes/{slug}-{id}', name: 'recipe.show', requirements: ['id' => '\d+', 'slug' => '[a-z0-9-]+'])]
  //public function show(Request $request): Response
  // mettre les paramètres au niveau de la méthdoe
  public function show(Request $request, string $slug, int $id)
  {
+
+    return $this->render('recipe/show.html.twig', [
+        'slug' => $slug,
+        'echappee' => "<strong>ceci est échappé par Twig</strong>",
+        'person' => [
+            'firstname' => 'Jane',
+            'lastname' => 'Doe'
+        ],
+        'id' => $id
+    ]);
+
     // Retour Json avec AbstractController
-    return $this->json(['slug' => $slug]);
+    //return $this->json(['slug' => $slug]);
     
     // Retour Json sans AbstractController
    // return new JsonResponse(['slug' => $slug]);

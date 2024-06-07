@@ -11,12 +11,16 @@ class HomeController extends AbstractController{
     #[Route("/", name: "home")]
     function index(Request $request): Response {
 
+        return $this->render('home/index.html.twig');
+        
         // en utilisant une méthdoe de AbstractController
         // return $this->redirect();
         
         // sans utiliser AbstractController & ses méthodes
+
         // -en utilisant la Request (avec une valeur par défaut)
-        return new Response ('Hallo ' . $request->query->get('name', 'Janosch'));
+        //return new Response ('Hallo ' . $request->query->get('name', 'Janosch'));
+
         // -PHP classique en récupérant ?name=Janosch dans la variable globale
         //return new Response('Hallo ' . $_GET['name']);
     }
