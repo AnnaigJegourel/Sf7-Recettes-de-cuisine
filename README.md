@@ -23,9 +23,10 @@ Voir le dossier documentation/ pour plus de détails.
 
 ## Thèmes
 
-- Installation
-- Premières pages & contrôleures
-- Twig + Boostrap
+1. Installation
+2. Premières pages & contrôleures
+3. Twig + Boostrap
+
 - Doctrine
 - Formulaires
 - Validation
