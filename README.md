@@ -9,6 +9,10 @@ Voir le détail des commit constituant chaque pull request : sur la branche dev.
 
 Voir le dossier documentation/ pour plus de détails.
 
+## Current Issues
+
+Dans ma bdd recettes, je n’arrive pas à modifier la colonne “duration” : elle reste nulle même quand j’enregistre une valeur dedans, elle ne se met pas sur “NotNull” non plus.
+
 ## Lien intéressants
 
 ### Twig
