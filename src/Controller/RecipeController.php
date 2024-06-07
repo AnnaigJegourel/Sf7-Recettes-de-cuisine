@@ -3,7 +3,6 @@
 namespace App\Controller;
 
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
-use Symfony\Bundle\MakerBundle\Str;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
@@ -15,7 +14,7 @@ class RecipeController extends AbstractController
     public function index(Request $request): Response
     {
 
-        return new Response('Recettes');
+        return $this->render('recipe/index.html.twig');
 
         // code donné par défaut
 /*         return $this->render('recipe/index.html.twig', [
