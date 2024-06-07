@@ -1,8 +1,12 @@
 {% extends "base.html.twig" %}
 
-{% block title "Recette : " ~ slug %}
+{% block title "Recette : " ~ recipe.title %}
 
 {% block body %}
+
+    <h1>{{ recipe.title }}</h1>
+    {# filtre pour que les sauts de ligne soient transférés #}
+    <p>{{ recipe.content |nl2br}}</p>
 
     <div>
         <h2>Afficher des variables</h2>
