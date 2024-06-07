@@ -1,0 +1,23 @@
+{% extends "base.html.twig" %}
+
+{% block title "Recette : " ~ slug %}
+
+{% block body %}
+
+    <div>
+        <h2>Afficher des variables</h2>
+        <p>Le slug de cette page est {{ slug }}</p>
+        <p>Twig échappe automatiquement le HTML, la preuve : {{ echappee }}</p>
+        <p>Le prénom donné dans le tableau "person" est {{ person.firstname }}</p>
+        <p>Je concatène le nom et le prénom : {{ person.firstname ~ person.lastname }}</p>
+    </div>
+
+    <div>
+        <h2>Utiliser des filtres</h2>
+        <p>Afficher en majuscules : {{ slug |upper }}</p>
+        <p>Afficher le HTML (inverser l'échappement) : {{ echappee |raw }}</p>
+        <p>Echapper manuellement : {{ echappee |e }}</p>
+    </div>
+
+
+{% endblock %}

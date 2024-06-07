@@ -27,8 +27,19 @@ class RecipeController extends AbstractController
  // mettre les paramètres au niveau de la méthdoe
  public function show(Request $request, string $slug, int $id)
  {
+
+    return $this->render('recipe/show.html.twig', [
+        'slug' => $slug,
+        'echappee' => "<strong>ceci est échappé par Twig</strong>",
+        'person' => [
+            'firstname' => 'Jane',
+            'lastname' => 'Doe'
+        ],
+        'id' => $id
+    ]);
+
     // Retour Json avec AbstractController
-    return $this->json(['slug' => $slug]);
+    //return $this->json(['slug' => $slug]);
     
     // Retour Json sans AbstractController
    // return new JsonResponse(['slug' => $slug]);
