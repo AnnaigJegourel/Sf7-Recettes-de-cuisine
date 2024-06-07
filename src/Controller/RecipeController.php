@@ -2,7 +2,9 @@
 
 namespace App\Controller;
 
+use App\Entity\Recipe;
 use App\Repository\RecipeRepository;
+use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Request;
@@ -12,10 +14,32 @@ use Symfony\Component\Routing\Attribute\Route;
 class RecipeController extends AbstractController
 {
     #[Route('/recettes', name: 'recipe.index')]
-    public function index(Request $request, RecipeRepository $repository): Response
+    public function index(Request $request, RecipeRepository $repository, EntityManagerInterface $em): Response
     {
         $recipes = $repository->findAll();
         //dd($recipes);
+
+        // Modifier un enregistrement
+        //$recipes[0]->setTitle("Pâtes boloniaises") ;
+
+        // Créer un nouvel enregistrement
+        $recipe = new Recipe;
+        $recipe->setTitle('Barbe à papa')
+            ->setSlug('barbe-a-papa')
+            ->setContent('Mettez du sucre')
+            ->setDuration(2)
+            ->setCreatedAt(new \DateTimeImmutable())
+            ->setUpdatedAt(new \DateTimeImmutable());
+
+        // l'entity manager doit enregistrer la présente de ce nouvel objet
+        //$em->persist($recipe);
+
+        // Supprimer un objet
+       // $em->remove($recipes[0]);
+
+        // pour que Doctrine compare avec la bdd et modifie:
+        //$em->flush() ;
+
         $recipes10 = $repository->findWithDurationLowerThan(10);
 
         return $this->render('recipe/index.html.twig', [
