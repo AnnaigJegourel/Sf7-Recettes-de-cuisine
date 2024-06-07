@@ -10,7 +10,7 @@ use Symfony\Component\Routing\Attribute\Route;
 
 class RecipeController extends AbstractController
 {
-    #[Route('/recette', name: 'recipe.index')]
+    #[Route('/recettes', name: 'recipe.index')]
     public function index(Request $request): Response
     {
 
@@ -22,7 +22,7 @@ class RecipeController extends AbstractController
         ]);
  */    }
 
- #[Route('/recette/{slug}-{id}', name: 'recipe.show', requirements: ['id' => '\d+', 'slug' => '[a-z0-9-]+'])]
+ #[Route('/recettes/{slug}-{id}', name: 'recipe.show', requirements: ['id' => '\d+', 'slug' => '[a-z0-9-]+'])]
  //public function show(Request $request): Response
  // mettre les paramètres au niveau de la méthdoe
  public function show(Request $request, string $slug, int $id)

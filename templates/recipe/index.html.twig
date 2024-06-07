@@ -6,5 +6,15 @@ syntaxe raccourcie#}
 {% block title "Toutes les recettes !"%}
 
 {% block body %}
-block body bambelamb
+    Voici les recettes disponibles :
+    <ul>
+        <li>
+            <a href={{ url('recipe.show', {id:32, slug:'pate-bol'}) }}>Pâtes bolo (url complète)</a>
+        </li>
+        <li>
+            <a href={{ path('recipe.show', {id:32, slug:'pate-bol'}) }}>Pâtes bolo (url avec seulement le chemin)</a>
+        </li>
+    </ul>
+
+    Voici le dump de app.current_route directement dans Twig : {{ dump(app.current_route) }} </li>
 {% endblock %}
