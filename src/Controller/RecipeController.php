@@ -3,6 +3,7 @@
 namespace App\Controller;
 
 use App\Entity\Recipe;
+use App\Form\RecipeType;
 use App\Repository\RecipeRepository;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
@@ -54,43 +55,56 @@ class RecipeController extends AbstractController
         ]);
  */    }
 
-#[Route('/recettes/{slug}-{id}', name: 'recipe.show', requirements: ['id' => '\d+', 'slug' => '[a-z0-9-]+'])]
- //public function show(Request $request): Response
- // mettre les paramètres au niveau de la méthdoe
-public function show(Request $request, string $slug, int $id, RecipeRepository $repository)
-{
-    $recipe = $repository->find($id);
-    //$recipe = $repository->findOneBy(['slug' => $slug]);
-    if ($recipe->getSlug() !== $slug) {
-        return $this->redirectToRoute('recipe.show', ['slug' => $recipe->getSlug(), 'id' => $recipe->getId()]);
-    }
+    #[Route('/recettes/{slug}-{id}', name: 'recipe.show', requirements: ['id' => '\d+', 'slug' => '[a-z0-9-]+'])]
+    //public function show(Request $request): Response
+    // mettre les paramètres au niveau de la méthdoe
+    public function show(Request $request, string $slug, int $id, RecipeRepository $repository)
+    {
+        $recipe = $repository->find($id);
+        //$recipe = $repository->findOneBy(['slug' => $slug]);
+        if ($recipe->getSlug() !== $slug) {
+            return $this->redirectToRoute('recipe.show', ['slug' => $recipe->getSlug(), 'id' => $recipe->getId()]);
+        }
 
-    return $this->render('recipe/show.html.twig', [
-        'slug' => $slug,
-        'echappee' => "<strong>ceci est échappé par Twig</strong>",
-        'person' => [
-            'firstname' => 'Jane',
-            'lastname' => 'Doe'
-        ],
-        'id' => $id,
-        'recipe' => $recipe
-    ]);
+        return $this->render('recipe/show.html.twig', [
+            'slug' => $slug,
+            'echappee' => "<strong>ceci est échappé par Twig</strong>",
+            'person' => [
+                'firstname' => 'Jane',
+                'lastname' => 'Doe'
+            ],
+            'id' => $id,
+            'recipe' => $recipe
+        ]);
 
-    // Retour Json avec AbstractController
-    //return $this->json(['slug' => $slug]);
-    
-    // Retour Json sans AbstractController
-   // return new JsonResponse(['slug' => $slug]);
+        // Retour Json avec AbstractController
+        //return $this->json(['slug' => $slug]);
+        
+        // Retour Json sans AbstractController
+    // return new JsonResponse(['slug' => $slug]);
 
-    // Retour classique
-    //return new Response('Recette ' . $slug);
+        // Retour classique
+        //return new Response('Recette ' . $slug);
 
-    // Récupérer les attributs de la requête
-    //dd($request->attributes->get('slug'), $request->attributes->get('id'));
-    // si les paramètres sont dans les arguments de la méthdoes :
-    //dd($slug, $id);
-    //dd($request);
+        // Récupérer les attributs de la requête
+        //dd($request->attributes->get('slug'), $request->attributes->get('id'));
+        // si les paramètres sont dans les arguments de la méthdoes :
+        //dd($slug, $id);
+        //dd($request);
 
+        }
+
+    #[Route('recettes/{id}/edit', name: 'recipe.edit', requirements: ['id' => '\d+'])]
+    //sans importer l'entité
+    //public function edit(int $id) {
+    //le framework va trouver tout seul le find($id) et trouver l'objet recette
+    public function edit(Recipe $recipe) {
+        // créer le formulaire en indiquant le Type à utiliser + les données
+        $form = $this->createForm(RecipeType::class, $recipe);
+        return $this->render('recipe/edit.html.twig', [
+            'recipe' => $recipe,
+            'form' => $form
+        ]);
     }
 
 }
