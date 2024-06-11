@@ -98,9 +98,19 @@ class RecipeController extends AbstractController
     //sans importer l'entité
     //public function edit(int $id) {
     //le framework va trouver tout seul le find($id) et trouver l'objet recette
-    public function edit(Recipe $recipe) {
+    public function edit(Recipe $recipe, Request $request, EntityManagerInterface $em) {
+
         // créer le formulaire en indiquant le Type à utiliser + les données
         $form = $this->createForm(RecipeType::class, $recipe);
+        //vérifie si le formulaire a été soumis, 
+        //si oui, modifie l'entité avec ses données (utilise les setters)
+        $form->handleRequest($request);
+        if ($form->isSubmitted() && $form->isValid()) {
+            $em->flush();
+
+            return $this->redirectToRoute('recipe.index');
+        }
+
         return $this->render('recipe/edit.html.twig', [
             'recipe' => $recipe,
             'form' => $form
