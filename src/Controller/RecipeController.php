@@ -102,7 +102,7 @@ class RecipeController extends AbstractController
 
 
     // -------------- EDIT --------------
-    #[Route('recettes/{id}/edit', name: 'recipe.edit', requirements: ['id' => '\d+'])]
+    #[Route('recettes/{id}/edit', name: 'recipe.edit', requirements: ['id' => '\d+'], methods: ['GET', 'POST'])]
     //sans importer l'entité
     //public function edit(int $id) {
     //le framework va trouver tout seul le find($id) et trouver l'objet recette
@@ -153,5 +153,16 @@ class RecipeController extends AbstractController
             'form' => $form
         ]);
     }
+
+    // -------------- DELETE --------------
+    #[Route('recettes/{id}', name: 'recipe.delete', methods: ['DELETE'])]
+    public function remove(Recipe $recipe, EntityManagerInterface $em)
+    {
+        $em->remove($recipe);
+        $em->flush();
+        $this->addFlash('success', 'La recette a bien été supprimée');
+
+        return $this->redirectToRoute('recipe.index');
+}
 
 }
