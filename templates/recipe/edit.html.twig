@@ -1,0 +1,24 @@
+{% extends "base.html.twig" %}
+
+{% block title "Recette : " ~ recipe.title %}
+
+{% block body %}
+
+    <h1>{{ recipe.title }}</h1>
+
+    {# la fonction qui permet de passer un formulaire + la variable envoyée par le contrôleur #}
+    {{ form(form) }}
+
+{#     Gérer la mise en forme dans Twig
+    {{ form_start(form) }}
+        {# je veux mettre des champs côte à côte #}
+{#         <div class="d-flex">
+            {{ form_row(form.title)}}
+            {{ form_row(form.duration)}}
+        </div>
+#}    {# j'affiche tous les autres champs #}
+{#     {{ form_rest (form) }}
+#}    {# tous les champs non gérés ci-dessus apparaîtront là (redondant avec ci-dessus) #}
+{#     {{ form_end(form) }}
+#}
+{% endblock %}

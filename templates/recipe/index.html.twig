@@ -6,31 +6,64 @@ syntaxe raccourcie#}
 {% block title "Toutes les recettes !"%}
 
 {% block body %}
-    Voici les recettes qui durent moins de 10 min :
+
+    <p>
+        <a class="btn btn-primary btn-sm" href={{ url('recipe.create') }}>Créer une recette</a>
+    </p>
+
+    <table class="table">
+        <thead>
+        <tr>
+            <th>Titre</th>
+            <th>Actions</th>
+        </tr>
+        </thead>
+
+        <tbody>
+            {% for recipe in recipes %}
+            <tr>
+                <td>
+                    <a href={{ url('recipe.show', {id: recipe.id, slug: recipe.slug}) }}>{{ recipe.title() }}</a>
+                </td>
+                <td>
+                    <div class="d-flex gap-1">
+                        <a class="btn btn-primary btn-sm" href={{ url('recipe.edit', {id: recipe.id}) }}>Editer</a>
+                        <form action="{{ path('recipe.delete', {id: recipe.id}) }}" method="post">
+                            <input type="hidden" name="_method" value="DELETE">
+                            <button type="submit" class="btn btn-danger btn-sm">Supprimer</a>
+                        </form>
+                    </div>
+                </td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+
+{#     Voici les recettes qui durent moins de 10 min :
     <ul>
         {% for recipe in recipes10 %}
         <li>
             {#  en appelant le getter
             <a href={{ url('recipe.show', {id: recipe.getId, slug: recipe.getSlug}) }}>{{ recipe.getTitle() }}</a> #}
             {# sans appeler le getter (le système cherche le getter)#}
-            <a href={{ url('recipe.show', {id: recipe.id, slug: recipe.slug}) }}>{{ recipe.title() }}</a>
-        </li>
-        {% endfor %}
-    </ul>
-
-    Voici toutes les recettes disponibles en base de données :
-    <ul>
-        {% for recipe in recipes %}
+{#             <a href={{ url('recipe.show', {id: recipe.id, slug: recipe.slug}) }}>{{ recipe.title() }}</a>
+        </li>        {% for recipe in recipes %}
         <li>
             {#  en appelant le getter
             <a href={{ url('recipe.show', {id: recipe.getId, slug: recipe.getSlug}) }}>{{ recipe.getTitle() }}</a> #}
             {# sans appeler le getter (le système cherche le getter)#}
-            <a href={{ url('recipe.show', {id: recipe.id, slug: recipe.slug}) }}>{{ recipe.title() }}</a>
+{#             <a href={{ url('recipe.show', {id: recipe.id, slug: recipe.slug}) }}>{{ recipe.title() }}</a>
         </li>
         {% endfor %}
-    </ul>
 
-    Voici les recettes disponibles :
+        {% endfor %}
+    </ul>
+ #}
+{#     Voici toutes les recettes disponibles en base de données :
+    <ul>
+    </ul>
+ #}
+{#     Voici les recettes disponibles :
     <ul>
         <li>
             <a href={{ url('recipe.show', {id:32, slug:'pate-bol'}) }}>Pâtes bolo (url complète)</a>
@@ -39,6 +72,6 @@ syntaxe raccourcie#}
             <a href={{ path('recipe.show', {id:32, slug:'pate-bol'}) }}>Pâtes bolo (url avec seulement le chemin)</a>
         </li>
     </ul>
-
+ #}
     Voici le dump de app.current_route directement dans Twig : {{ dump(app.current_route) }} </li>
 {% endblock %}
