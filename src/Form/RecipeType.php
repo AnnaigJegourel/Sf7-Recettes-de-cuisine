@@ -13,6 +13,9 @@ use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\Form\FormEvents;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 use Symfony\Component\String\Slugger\AsciiSlugger;
+use Symfony\Component\Validator\Constraints\Length;
+use Symfony\Component\Validator\Constraints\Regex;
+use Symfony\Component\Validator\Constraints\Sequentially;
 
 class RecipeType extends AbstractType
 {
@@ -22,8 +25,24 @@ class RecipeType extends AbstractType
         // on peut préciser le type de champ, modifier le label...
             ->add('title')
             ->add('slug', TextType::class, [
-                'required' => false
+                'required' => false,
+                'constraints' => [
+                    new Length(min: 10),
+                    new Regex(
+                        "/ ^[a-z0-9]+(?:-[a-z0-9]+)*$ /", 
+                        message: "Certains caractères ne sont pas acceptés."
+                    )
+                ]
             ])
+            //Vérifier une contrainte après l'autre (envoie un seul message)
+/*                 'constraints' => new Sequentially([
+                    new Length(min: 10),
+                    new Regex(
+                        "/ ^[a-z0-9]+(?:-[a-z0-9]+)*$ /", 
+                        message: "Certains caractères ne sont pas acceptés."
+                    )
+                ])
+ */ 
             ->add('content')
             ->add('duration')
             // Création du bouton submit
