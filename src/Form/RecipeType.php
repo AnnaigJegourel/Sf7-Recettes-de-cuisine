@@ -8,11 +8,15 @@ use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Event\PostSubmitEvent;
 use Symfony\Component\Form\Event\PreSubmitEvent;
 use Symfony\Component\Form\Extension\Core\Type\SubmitType;
+use Symfony\Component\Form\Extension\Core\Type\TextareaType;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\Form\FormEvents;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 use Symfony\Component\String\Slugger\AsciiSlugger;
+use Symfony\Component\Validator\Constraints\Length;
+use Symfony\Component\Validator\Constraints\Regex;
+use Symfony\Component\Validator\Constraints\Sequentially;
 
 class RecipeType extends AbstractType
 {
@@ -20,11 +24,35 @@ class RecipeType extends AbstractType
     {
         $builder
         // on peut préciser le type de champ, modifier le label...
-            ->add('title')
+            ->add('title', TextType::class, [
+                'empty_data' => ''
+            ])
             ->add('slug', TextType::class, [
                 'required' => false
             ])
-            ->add('content')
+            //Contraintes au niveau des champs
+/*             ->add('slug', TextType::class, [
+                'required' => false,
+                'constraints' => [
+                    new Length(min: 10),
+                    new Regex(
+                        "/ ^[a-z0-9]+(?:-[a-z0-9]+)*$ /", 
+                        message: "Certains caractères ne sont pas acceptés."
+                    )
+                ]
+            ])
+ */            //Vérifier une contrainte après l'autre (envoie un seul message)
+/*                 'constraints' => new Sequentially([
+                    new Length(min: 10),
+                    new Regex(
+                        "/ ^[a-z0-9]+(?:-[a-z0-9]+)*$ /", 
+                        message: "Certains caractères ne sont pas acceptés."
+                    )
+                ])
+ */ 
+            ->add('content', TextareaType::class, [
+                'empty_data' => ''
+            ])
             ->add('duration')
             // Création du bouton submit
             //on peut préciser le type de champ, modifier le label par défaut
