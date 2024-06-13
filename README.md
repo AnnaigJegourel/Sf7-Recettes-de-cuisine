@@ -9,11 +9,7 @@ Voir le détail des commit constituant chaque pull request : sur la branche dev.
 
 Voir le dossier documentation/ pour plus de détails.
 
-## Current Issues
-
-Dans ma bdd recettes, je n’arrive pas à modifier la colonne “duration” : elle reste nulle même quand j’enregistre une valeur dedans, elle ne se met pas sur “NotNull” non plus.
-
-## Lien intéressants
+## Liens intéressants
 
 ### Twig
 
@@ -21,19 +17,27 @@ Dans ma bdd recettes, je n’arrive pas à modifier la colonne “duration” : 
 
 <https://symfony.com/doc/current/reference/configuration/twig.html>
 
-<https://symfony.com/doc/current/reference/twig_reference.html#functions>
+### Symfony
 
-### Autres
+<https://symfony.com/doc/current/reference>
+
+<https://symfony.com/doc/current/reference/forms/types/form.html#validation-groups>
+
+### Regex
+
+<https://ihateregex.io/>
+
+<https://symfony.com/doc/current/reference/constraints/Regex.html>
 
 ## Thèmes
 
 1. Installation
 2. Premières pages & contrôleures
 3. Twig + Boostrap
+4. Doctrine
+5. Formulaires
+6. Validation
 
-- Doctrine
-- Formulaires
-- Validation
 - TP Formulaire de contact
 - Services
 - TP Catégories
