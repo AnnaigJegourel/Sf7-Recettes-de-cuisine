@@ -5,6 +5,7 @@ namespace App\Entity;
 use App\Repository\RecipeRepository;
 use Doctrine\DBAL\Types\Types;
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Component\Validator\Constraints as Assert;
 
 #[ORM\Entity(repositoryClass: RecipeRepository::class)]
 class Recipe
@@ -15,12 +16,20 @@ class Recipe
     private ?int $id = null;
 
     #[ORM\Column(length: 255)]
+    //contrainte de validation
+    #[Assert\Length(min: 5)]
     private ?string $title = null;
 
     #[ORM\Column(length: 255)]
+    #[Assert\Length(min: 5)]
+    #[Assert\Regex(
+        "/ ^[a-z0-9]+(?:-[a-z0-9]+)*$ /", 
+        message: "Certains caractères ne sont pas acceptés."
+    )]
     private ?string $slug = null;
 
     #[ORM\Column(type: Types::TEXT)]
+    #[Assert\Length(min: 5)]
     private ?string $content = null;
 
     #[ORM\Column]
@@ -30,6 +39,10 @@ class Recipe
     private ?\DateTimeImmutable $updatedAt = null;
 
     #[ORM\Column(nullable: true)]
+    //Valeur non négative (contrainte uniquement pour des entiers)
+    #[Assert\Positive()]
+    //Valeur non nulle
+    //#[Assert\NotBlank()]
     private ?int $duration;
 
     public function getId(): ?int

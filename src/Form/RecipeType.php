@@ -25,6 +25,10 @@ class RecipeType extends AbstractType
         // on peut préciser le type de champ, modifier le label...
             ->add('title')
             ->add('slug', TextType::class, [
+                'required' => false
+            ])
+            //Contraintes au niveau des champs
+/*             ->add('slug', TextType::class, [
                 'required' => false,
                 'constraints' => [
                     new Length(min: 10),
@@ -34,7 +38,7 @@ class RecipeType extends AbstractType
                     )
                 ]
             ])
-            //Vérifier une contrainte après l'autre (envoie un seul message)
+ */            //Vérifier une contrainte après l'autre (envoie un seul message)
 /*                 'constraints' => new Sequentially([
                     new Length(min: 10),
                     new Regex(
