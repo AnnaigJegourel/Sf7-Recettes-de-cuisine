@@ -5,9 +5,12 @@ namespace App\Entity;
 use App\Repository\RecipeRepository;
 use Doctrine\DBAL\Types\Types;
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
 use Symfony\Component\Validator\Constraints as Assert;
 
 #[ORM\Entity(repositoryClass: RecipeRepository::class)]
+#[UniqueEntity('title')]
+#[UniqueEntity('slug')]
 class Recipe
 {
     #[ORM\Id]
@@ -43,6 +46,7 @@ class Recipe
     #[Assert\Positive()]
     //Valeur non nulle
     //#[Assert\NotBlank()]
+    #[Assert\LessThan(value: 1440)]
     private ?int $duration;
 
     public function getId(): ?int
