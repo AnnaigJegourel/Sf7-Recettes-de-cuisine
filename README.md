@@ -23,6 +23,9 @@ Voir le dossier documentation/ pour plus de détails.
 
 <https://symfony.com/doc/current/reference/forms/types/form.html#validation-groups>
 
+<https://symfony.com/doc/current/reference/constraints/Email.html>
+<https://symfony.com/doc/current/mailer.html>
+
 ### Regex
 
 <https://ihateregex.io/>
@@ -37,25 +40,29 @@ Voir le dossier documentation/ pour plus de détails.
 4. Doctrine
 5. Formulaires
 6. Validation
+7. Services
+8. TP Formulaire de contact
 
-- TP Formulaire de contact
-- Services
 - TP Catégories
 - ORM Many to One
 - Envoi de fichiers
 - Composant Security
+
 - Pagination
 - Doctrine avancé
 - AssetMapper
 - API 1: Serializer
+
 - API 2 : Désérialisation & MapRequestPayLoad
 - API 3 : Authenticator stateless
 - Fixtures
 - Voters
+
 - Evénements
 - Symfony UX
 - Formualaires imbriqués
 - Messenger
+
 - Internationalisation
 - Hébergement Infomaniak
 - Hébergement O2Switch
