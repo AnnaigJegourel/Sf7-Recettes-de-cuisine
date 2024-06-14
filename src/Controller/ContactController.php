@@ -4,6 +4,7 @@ namespace App\Controller;
 
 use App\DTO\ContactDTO;
 use App\Form\ContactType;
+use Exception; //not the right one?
 use Symfony\Bridge\Twig\Mime\TemplatedEmail;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
@@ -31,8 +32,8 @@ class ContactController extends AbstractController
             try {
                 //Création de l'email avec un template Twig
                 $mail = (new TemplatedEmail())
-                    ->to($data->service)
-                    //->to('ae') // pour tester l'erreur d'envoi
+                    //->to($data->service)
+                    ->to('ae') // pour tester l'erreur d'envoi
                     ->from($data->email)    //l'email saisi par l'U
                     ->subject('Demande de contact')
                     ->htmlTemplate('emails/contact.html.twig')
@@ -47,7 +48,7 @@ class ContactController extends AbstractController
                 
                 return $this->redirectToRoute('contact');
 
-            } catch (\Exception $e) {
+            } catch (Exception $e) {
                 $this->addFlash('danger', "Impossible d'envoyer votre e-mail");
             }
         }

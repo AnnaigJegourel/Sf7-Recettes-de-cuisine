@@ -34,6 +34,7 @@ class ContactType extends AbstractType
                     'Comptabilité' => 'compta@demo.fr',
                     'Marketing' => 'marketing@demo.fr',
                     'Support' => 'support@demo.fr',
+                    'Annaig' => 'jegourel@dfh-ufa.org'
                 ]
             ])
         ;
