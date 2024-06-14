@@ -28,21 +28,28 @@ class ContactController extends AbstractController
 
         if($form->isSubmitted() && $form->isValid()) {
 
-            //Création de l'email avec un template Twig
-            $mail = (new TemplatedEmail())
-                ->to($data->service)
-                ->from($data->email)    //l'email saisi par l'U
-                ->subject('Demande de contact')
-                ->htmlTemplate('emails/contact.html.twig')
-                ->context(['data' => $data]);
-            //Symfony\Component\Mime\Email avec du html
-            //$mail = (new Email())
+            try {
+                //Création de l'email avec un template Twig
+                $mail = (new TemplatedEmail())
+                    ->to($data->service)
+                    //->to('ae') // pour tester l'erreur d'envoi
+                    ->from($data->email)    //l'email saisi par l'U
+                    ->subject('Demande de contact')
+                    ->htmlTemplate('emails/contact.html.twig')
+                    ->context(['data' => $data]);
+                //Symfony\Component\Mime\Email avec du html
+                //$mail = (new Email())
 
-            //envoi de l'e-mail
-            $mailer->send($mail);
-            $this->addFlash('success', "Votre e-mail a bien été envoyé");
-            
-            return $this->redirectToRoute('contact');
+                //envoi de l'e-mail
+                $mailer->send($mail);
+
+                $this->addFlash('success', "Votre e-mail a bien été envoyé");
+                
+                return $this->redirectToRoute('contact');
+
+            } catch (\Exception $e) {
+                $this->addFlash('danger', "Impossible d'envoyer votre e-mail");
+            }
         }
 
         return $this->render('contact/contact.html.twig', [
