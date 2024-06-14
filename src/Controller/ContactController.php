@@ -30,7 +30,7 @@ class ContactController extends AbstractController
 
             //Création de l'email avec un template Twig
             $mail = (new TemplatedEmail())
-                ->to('jegourel@dfh-ufa.org')
+                ->to($data->service)
                 ->from($data->email)    //l'email saisi par l'U
                 ->subject('Demande de contact')
                 ->htmlTemplate('emails/contact.html.twig')
