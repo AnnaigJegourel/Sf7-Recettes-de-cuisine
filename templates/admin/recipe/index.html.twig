@@ -1,4 +1,4 @@
-{% extends "base.html.twig" %}
+{% extends "admin/admin.html.twig" %}
 
 {# syntaxe complète
 {% block title %}Toutes les recettes{% endblock %}
@@ -8,7 +8,7 @@ syntaxe raccourcie#}
 {% block body %}
 
     <p>
-        <a class="btn btn-primary btn-sm" href={{ url('recipe.create') }}>Créer une recette</a>
+        <a class="btn btn-primary btn-sm" href={{ url('admin.recipe.create') }}>Créer une recette</a>
     </p>
 
     <table class="table">
@@ -23,12 +23,13 @@ syntaxe raccourcie#}
             {% for recipe in recipes %}
             <tr>
                 <td>
-                    <a href={{ url('recipe.show', {id: recipe.id, slug: recipe.slug}) }}>{{ recipe.title() }}</a>
+                    {# <a href={{ url('admin.recipe.show', {id: recipe.id, slug: recipe.slug}) }}>{{ recipe.title() }}</a> #}
+                    <a href={{ url('admin.recipe.edit', {id: recipe.id}) }}>{{ recipe.title() }}</a>
                 </td>
                 <td>
                     <div class="d-flex gap-1">
-                        <a class="btn btn-primary btn-sm" href={{ url('recipe.edit', {id: recipe.id}) }}>Editer</a>
-                        <form action="{{ path('recipe.delete', {id: recipe.id}) }}" method="post">
+                        <a class="btn btn-primary btn-sm" href={{ url('admin.recipe.edit', {id: recipe.id}) }}>Editer</a>
+                        <form action="{{ path('admin.recipe.delete', {id: recipe.id}) }}" method="post">
                             <input type="hidden" name="_method" value="DELETE">
                             <button type="submit" class="btn btn-danger btn-sm">Supprimer</a>
                         </form>
