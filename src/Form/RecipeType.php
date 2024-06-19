@@ -20,6 +20,12 @@ use Symfony\Component\Validator\Constraints\Sequentially;
 
 class RecipeType extends AbstractType
 {
+    //constructeur pour utiliser le service d'événement pour les formulaires
+    public function __construct(private FormListenerFactory $listenerFactory)
+    {
+        
+    }
+
     public function buildForm(FormBuilderInterface $builder, array $options): void
     {
         $builder
@@ -59,12 +65,15 @@ class RecipeType extends AbstractType
             ->add('save', SubmitType::class, [
                 'label' => "Envoyer"
             ])
-            ->addEventListener(FormEvents::PRE_SUBMIT, $this->autoSlug(...))
-            ->addEventListener(FormEvents::POST_SUBMIT, $this->attachTimestamps(...))
+            ->addEventListener(FormEvents::PRE_SUBMIT, $this->listenerFactory->autoSlug('title'))
+            ->addEventListener(FormEvents::POST_SUBMIT, $this->listenerFactory->timestamps())
+            // sans service / factory :
+            //->addEventListener(FormEvents::PRE_SUBMIT, $this->autoSlug(...))
+            //->addEventListener(FormEvents::POST_SUBMIT, $this->attachTimestamps(...))
         ;
     }
 
-    public function autoSlug(PreSubmitEvent $event): void
+/*     public function autoSlug(PreSubmitEvent $event): void
     {
         //les données sont un tableau
         $data = $event->getData();
@@ -96,4 +105,4 @@ class RecipeType extends AbstractType
             'data_class' => Recipe::class,
         ]);
     }
-}
+ */}
