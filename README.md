@@ -42,8 +42,8 @@ Voir le dossier documentation/ pour plus de détails.
 6. Validation
 7. Services
 8. TP Formulaire de contact
+9. TP Catégories
 
-- TP Catégories
 - ORM Many to One
 - Envoi de fichiers
 - Composant Security
