@@ -15,10 +15,12 @@ use Symfony\Component\String\Slugger\AsciiSlugger;
 use Symfony\Component\Validator\Constraints\Regex;
 use Symfony\Component\Validator\Constraints\Length;
 use Symfony\Component\OptionsResolver\OptionsResolver;
+use Symfony\Component\Form\Extension\Core\Type\FileType;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\Validator\Constraints\Sequentially;
 use Symfony\Component\Form\Extension\Core\Type\SubmitType;
 use Symfony\Component\Form\Extension\Core\Type\TextareaType;
+use Symfony\Component\Validator\Constraints\Image;
 
 class RecipeType extends AbstractType
 {
@@ -38,7 +40,20 @@ class RecipeType extends AbstractType
             ->add('slug', TextType::class, [
                 'required' => false
             ])
-            //Contraintes au niveau des champs
+            ->add('thumbnailFile', FileType::class)
+/*             SANS VICH UPLOADER
+            ->add('thumbnailFile', FileType::class, [
+                //ne sera pas mappé vers un champ de la bdd (pas de recherche des getters et setters)
+                'mapped' => false,
+                //il faut donc ajouter les contraintes car pas d'entité
+                'constraints' => [
+                    //il faut que ce soit une image
+                    new Image()
+                ]
+            ])
+ */
+
+ //Contraintes au niveau des champs
 /*             ->add('slug', TextType::class, [
                 'required' => false,
                 'constraints' => [
@@ -49,7 +64,9 @@ class RecipeType extends AbstractType
                     )
                 ]
             ])
- */            //Vérifier une contrainte après l'autre (envoie un seul message)
+ */
+
+ //Vérifier une contrainte après l'autre (envoie un seul message)
 /*                 'constraints' => new Sequentially([
                     new Length(min: 10),
                     new Regex(
