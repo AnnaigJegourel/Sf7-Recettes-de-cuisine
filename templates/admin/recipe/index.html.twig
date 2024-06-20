@@ -7,16 +7,19 @@ syntaxe raccourcie#}
 
 {% block body %}
 
+    <h1>Les recettes</h1>
     <p>
         <a class="btn btn-primary btn-sm" href={{ url('admin.recipe.create') }}>Créer une recette</a>
     </p>
 
+    <h2>Toutes :</h2>
     <table class="table">
         <thead>
-        <tr>
-            <th>Titre</th>
-            <th>Actions</th>
-        </tr>
+            <tr>
+                <th>Titre</th>
+                <th>Catégorie</th>
+                <th>Actions</th>
+            </tr>
         </thead>
 
         <tbody>
@@ -26,6 +29,7 @@ syntaxe raccourcie#}
                     {# <a href={{ url('admin.recipe.show', {id: recipe.id, slug: recipe.slug}) }}>{{ recipe.title() }}</a> #}
                     <a href={{ url('admin.recipe.edit', {id: recipe.id}) }}>{{ recipe.title() }}</a>
                 </td>
+                <td>{{ recipe.category.name | default('') }}</td>
                 <td>
                     <div class="d-flex gap-1">
                         <a class="btn btn-primary btn-sm" href={{ url('admin.recipe.edit', {id: recipe.id}) }}>Editer</a>
@@ -40,23 +44,50 @@ syntaxe raccourcie#}
         </tbody>
     </table>
 
+
+
+    <h2>En moins de 10 min!</h2>
+    <table class="table">
+        <thead>
+            <tr>
+                <th>Titre</th>
+                <th>Catégorie</th>
+                <th>Actions</th>
+            </tr>
+        </thead>
+
+        <tbody>
+            {% for recipe in recipes10 %}
+            <tr>
+                <td>
+                    {# <a href={{ url('admin.recipe.show', {id: recipe.id, slug: recipe.slug}) }}>{{ recipe.title() }}</a> #}
+                    <a href={{ url('admin.recipe.edit', {id: recipe.id}) }}>{{ recipe.title() }}</a>
+                </td>
+                <td>{{ recipe.category.name | default('') }}</td>
+                <td>
+                    <div class="d-flex gap-1">
+                        <a class="btn btn-primary btn-sm" href={{ url('admin.recipe.edit', {id: recipe.id}) }}>Editer</a>
+                        <form action="{{ path('admin.recipe.delete', {id: recipe.id}) }}" method="post">
+                            <input type="hidden" name="_method" value="DELETE">
+                            <button type="submit" class="btn btn-danger btn-sm">Supprimer</a>
+                        </form>
+                    </div>
+                </td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+
+
 {#     Voici les recettes qui durent moins de 10 min :
     <ul>
         {% for recipe in recipes10 %}
         <li>
-            {#  en appelant le getter
-            <a href={{ url('recipe.show', {id: recipe.getId, slug: recipe.getSlug}) }}>{{ recipe.getTitle() }}</a> #}
+            {#  en appelant le getter #}
+            {# <a href={{ url('admin.recipe.show', {id: recipe.getId, slug: recipe.getSlug}) }}>{{ recipe.getTitle() }}</a>
             {# sans appeler le getter (le système cherche le getter)#}
-{#             <a href={{ url('recipe.show', {id: recipe.id, slug: recipe.slug}) }}>{{ recipe.title() }}</a>
-        </li>        {% for recipe in recipes %}
-        <li>
-            {#  en appelant le getter
-            <a href={{ url('recipe.show', {id: recipe.getId, slug: recipe.getSlug}) }}>{{ recipe.getTitle() }}</a> #}
-            {# sans appeler le getter (le système cherche le getter)#}
-{#             <a href={{ url('recipe.show', {id: recipe.id, slug: recipe.slug}) }}>{{ recipe.title() }}</a>
-        </li>
-        {% endfor %}
-
+            {# <a href={{ url('admin.recipe.show', {id: recipe.id, slug: recipe.slug}) }}>{{ recipe.title() }}</a>#}
+        {# </li>
         {% endfor %}
     </ul>
  #}

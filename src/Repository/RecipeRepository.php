@@ -31,8 +31,14 @@ class RecipeRepository extends ServiceEntityRepository
     {
         // 'r' est un alias, comme en SQL
         return $this->createQueryBuilder('r')
+            //récupérer les infos concernant les recettes, mais aussi les catégories
+            ->select("r", "c")
             ->where('r.duration < :duration')
             ->orderBy('r.duration', 'ASC')
+            //faire la liaison pour récupérer les catégories
+            ->leftJoin("r.category", "c")
+            //sélectionner seulement les plats principaux
+            //->andWhere("c.slug = 'plat-principal'")
             // prendre un seul résultat
             ->setMaxResults(10)
             ->setParameter('duration', $duration)
