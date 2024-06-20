@@ -51,7 +51,7 @@ class Recipe
     #[Assert\LessThan(value: 1440)]
     private ?int $duration;
 
-    #[ORM\ManyToOne(inversedBy: 'recipes')]
+    #[ORM\ManyToOne(inversedBy: 'recipes', cascade: ['persist'])]
     private ?Category $category = null;
 
     public function getId(): ?int

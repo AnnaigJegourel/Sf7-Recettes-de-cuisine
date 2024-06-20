@@ -41,7 +41,9 @@ class Category
     /**
      * @var Collection<int, Recipe>
      */
-    #[ORM\OneToMany(targetEntity: Recipe::class, mappedBy: 'category')]
+    // Si on veut que les recettes associées soient supprimées en même temps que la catégorie
+    //#[ORM\OneToMany(targetEntity: Recipe::class, mappedBy: 'category', cascade: ['remove'])]
+    #[ORM\OneToMany(targetEntity: Recipe::class, mappedBy: 'category', cascade: ['remove'])]
     private Collection $recipes;
 
     public function __construct()
