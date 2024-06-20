@@ -21,7 +21,15 @@ Voir le dossier documentation/ pour plus de détails.
 
 <https://symfony.com/doc/current/reference>
 
+#### Forms
+
 <https://symfony.com/doc/current/reference/forms/types/form.html#validation-groups>
+
+<https://symfony.com/doc/current/reference/forms/types/entity.html>
+
+<https://symfony.com/doc/current/reference/forms/types/entity.html#by-reference>
+
+#### E-mails
 
 <https://symfony.com/doc/current/reference/constraints/Email.html>
 <https://symfony.com/doc/current/mailer.html>
@@ -31,6 +39,10 @@ Voir le dossier documentation/ pour plus de détails.
 <https://ihateregex.io/>
 
 <https://symfony.com/doc/current/reference/constraints/Regex.html>
+
+### Doctrine
+
+<https://www.doctrine-project.org/projects/doctrine-orm/en/3.2/reference/working-with-associations.html#transitive-persistence-cascade-operations>
 
 ## Thèmes
 
@@ -42,8 +54,8 @@ Voir le dossier documentation/ pour plus de détails.
 6. Validation
 7. Services
 8. TP Formulaire de contact
+9. TP Catégories
 
-- TP Catégories
 - ORM Many to One
 - Envoi de fichiers
 - Composant Security

@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Controller;
+namespace App\Controller\Admin;
 
 use App\Entity\Recipe;
 use App\Form\RecipeType;
@@ -12,12 +12,41 @@ use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Attribute\Route;
+use Symfony\Component\Routing\Requirement\Requirement;
 
+#[Route('/admin/recettes', name: 'admin.recipe.')]
 class RecipeController extends AbstractController
 {
 
+
+    // -------------- CREATE --------------
+    #[Route('/create', name: 'create')]
+    public function create(Request $request, EntityManagerInterface $em)
+    {
+        // je crée un objet vide à envoyer dans mon formulaire
+        $recipe = new Recipe;
+        $form = $this->createForm(RecipeType::class, $recipe);
+        $form->handleRequest($request);
+
+        if ($form->isSubmitted() && $form->isValid()) {
+            // à ne pas oublier pour une création d'objet
+            $recipe->setCreatedAt(new DateTimeImmutable());
+            $recipe->setUpdatedAt(new DateTimeImmutable());
+            $em->persist($recipe);
+            $em->flush();
+            $this->addFlash('success', 'La recette a bien été créée');
+
+            return $this->redirectToRoute('admin.recipe.index');
+        }
+
+        return $this->render('admin/recipe/create.html.twig', [
+            'form' => $form
+        ]);
+    }
+
+
     // -------------- READ ALL --------------
-    #[Route('/recettes', name: 'recipe.index')]
+    #[Route('/', name: 'index')]
     public function index(Request $request, RecipeRepository $repository, EntityManagerInterface $em): Response
     {
         //dd($repository->findTotalDuration());
@@ -47,13 +76,13 @@ class RecipeController extends AbstractController
 
         $recipes10 = $repository->findWithDurationLowerThan(10);
 
-        return $this->render('recipe/index.html.twig', [
+        return $this->render('admin/recipe/index.html.twig', [
             'recipes' => $recipes,
             'recipes10' => $recipes10
         ]);
 
         // code donné par défaut
-/*         return $this->render('recipe/index.html.twig', [
+/*         return $this->render('admin/recipe/index.html.twig', [
             'controller_name' => 'RecipeController',
         ]);
  */    }
@@ -61,7 +90,7 @@ class RecipeController extends AbstractController
 
     // -------------- READ ONE --------------
 
-    #[Route('/recettes/{slug}-{id}', name: 'recipe.show', requirements: ['id' => '\d+', 'slug' => '[a-z0-9-]+'])]
+    #[Route('/{slug}-{id}', name: 'show', requirements: ['id' => '\d+', 'slug' => '[a-z0-9-]+'])]
     //public function show(Request $request): Response
     // mettre les paramètres au niveau de la méthdoe
     public function show(Request $request, string $slug, int $id, RecipeRepository $repository)
@@ -69,10 +98,10 @@ class RecipeController extends AbstractController
         $recipe = $repository->find($id);
         //$recipe = $repository->findOneBy(['slug' => $slug]);
         if ($recipe->getSlug() !== $slug) {
-            return $this->redirectToRoute('recipe.show', ['slug' => $recipe->getSlug(), 'id' => $recipe->getId()]);
+            return $this->redirectToRoute('admin.recipe.show', ['slug' => $recipe->getSlug(), 'id' => $recipe->getId()]);
         }
 
-        return $this->render('recipe/show.html.twig', [
+        return $this->render('admin/recipe/show.html.twig', [
             'slug' => $slug,
             'echappee' => "<strong>ceci est échappé par Twig</strong>",
             'person' => [
@@ -87,7 +116,7 @@ class RecipeController extends AbstractController
         //return $this->json(['slug' => $slug]);
         
         // Retour Json sans AbstractController
-    // return new JsonResponse(['slug' => $slug]);
+        // return new JsonResponse(['slug' => $slug]);
 
         // Retour classique
         //return new Response('Recette ' . $slug);
@@ -102,7 +131,7 @@ class RecipeController extends AbstractController
 
 
     // -------------- EDIT --------------
-    #[Route('recettes/{id}/edit', name: 'recipe.edit', requirements: ['id' => '\d+'], methods: ['GET', 'POST'])]
+    #[Route('/{id}', name: 'edit', requirements: ['id' => '\d+'], methods: ['GET', 'POST'])]
     //sans importer l'entité
     //public function edit(int $id) {
     //le framework va trouver tout seul le find($id) et trouver l'objet recette
@@ -119,50 +148,26 @@ class RecipeController extends AbstractController
 
             $this->addFlash('success', "La recette a bien été modifiée");
 
-            return $this->redirectToRoute('recipe.index');
+            return $this->redirectToRoute('admin.recipe.index');
         }
 
-        return $this->render('recipe/edit.html.twig', [
+        return $this->render('admin/recipe/edit.html.twig', [
             'recipe' => $recipe,
             'form' => $form
         ]);
     }
 
 
-    // -------------- CREATE --------------
-    #[Route('recettes/create', name: 'recipe.create')]
-    public function create(Request $request, EntityManagerInterface $em)
-    {
-        // je crée un objet vide à envoyer dans mon formulaire
-        $recipe = new Recipe;
-        $form = $this->createForm(RecipeType::class, $recipe);
-        $form->handleRequest($request);
-
-        if ($form->isSubmitted() && $form->isValid()) {
-            // à ne pas oublier pour une création d'objet
-            $recipe->setCreatedAt(new DateTimeImmutable());
-            $recipe->setUpdatedAt(new DateTimeImmutable());
-            $em->persist($recipe);
-            $em->flush();
-            $this->addFlash('success', 'La recette a bien été créée');
-
-            return $this->redirectToRoute('recipe.index');
-        }
-
-        return $this->render('recipe/create.html.twig', [
-            'form' => $form
-        ]);
-    }
-
     // -------------- DELETE --------------
-    #[Route('recettes/{id}', name: 'recipe.delete', methods: ['DELETE'])]
+    //Requirement = énumérateur avec les req d'url courants; DIGITS = nombres
+    #[Route('/{id}', name: 'delete', methods: ['DELETE'], requirements: ['id' => Requirement::DIGITS])]
     public function remove(Recipe $recipe, EntityManagerInterface $em)
     {
         $em->remove($recipe);
         $em->flush();
         $this->addFlash('success', 'La recette a bien été supprimée');
 
-        return $this->redirectToRoute('recipe.index');
-}
+        return $this->redirectToRoute('admin.recipe.index');
+    }
 
 }

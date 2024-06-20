@@ -28,7 +28,7 @@ class Recipe
     #[ORM\Column(length: 255)]
     #[Assert\Length(min: 5)]
     #[Assert\Regex(
-        "/ ^[a-z0-9]+(?:-[a-z0-9]+)*$ /", 
+        "/^[a-z0-9]+(?:-[a-z0-9]+)*$/", 
         message: "Certains caractères ne sont pas acceptés."
     )]
     private ?string $slug = null;
@@ -50,6 +50,9 @@ class Recipe
     //#[Assert\NotBlank()]
     #[Assert\LessThan(value: 1440)]
     private ?int $duration;
+
+    #[ORM\ManyToOne(inversedBy: 'recipes', cascade: ['persist'])]
+    private ?Category $category = null;
 
     public function getId(): ?int
     {
@@ -124,6 +127,18 @@ class Recipe
     public function setDuration(?int $duration): static
     {
         $this->duration = $duration;
+
+        return $this;
+    }
+
+    public function getCategory(): ?Category
+    {
+        return $this->category;
+    }
+
+    public function setCategory(?Category $category): static
+    {
+        $this->category = $category;
 
         return $this;
     }
