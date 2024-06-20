@@ -147,15 +147,16 @@ class RecipeController extends AbstractController
 
             $recipe->setUpdatedAt(new DateTimeImmutable());
 
+           // GERE UPLOAD DE FICHIER SANS VICH UPLOADER
             /** @var UploadedFile $file */
-            $file = $form->get('thumbnailFile')->getData();
+            //$file = $form->get('thumbnailFile')->getData();
             //on crée le nom du fichier en récupérant l'extesion du fichier d'origine
-            $filename = $recipe->getId() . '.' . $file->getClientOriginalExtension();
+            // $filename = $recipe->getId() . '.' . $file->getClientOriginalExtension();
             //un objet de type UploadedFile dispose de cette méthode
             //on déplace le 2e élément (fichier) dans le 1e élément (dossier)
-            $file->move($this->getParameter('kernel.project_dir') . '/public/recettes/images', $filename);
+            // $file->move($this->getParameter('kernel.project_dir') . '/public/recettes/images', $filename);
             //on enregistre le nom du fichier pour la bdd
-            $recipe->setThumbnail($filename);
+            // $recipe->setThumbnail($filename);
 
 /*             //récupérer nom et extension du fichier
             $file->getClientOriginalName();

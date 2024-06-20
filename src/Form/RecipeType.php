@@ -40,6 +40,8 @@ class RecipeType extends AbstractType
             ->add('slug', TextType::class, [
                 'required' => false
             ])
+            ->add('thumbnailFile', FileType::class)
+/*             SANS VICH UPLOADER
             ->add('thumbnailFile', FileType::class, [
                 //ne sera pas mappé vers un champ de la bdd (pas de recherche des getters et setters)
                 'mapped' => false,
@@ -49,7 +51,9 @@ class RecipeType extends AbstractType
                     new Image()
                 ]
             ])
-            //Contraintes au niveau des champs
+ */
+
+ //Contraintes au niveau des champs
 /*             ->add('slug', TextType::class, [
                 'required' => false,
                 'constraints' => [
@@ -60,7 +64,9 @@ class RecipeType extends AbstractType
                     )
                 ]
             ])
- */            //Vérifier une contrainte après l'autre (envoie un seul message)
+ */
+
+ //Vérifier une contrainte après l'autre (envoie un seul message)
 /*                 'constraints' => new Sequentially([
                     new Length(min: 10),
                     new Regex(
