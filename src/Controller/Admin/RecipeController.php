@@ -13,6 +13,7 @@ use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Attribute\Route;
 use Symfony\Component\Routing\Requirement\Requirement;
+use Vich\UploaderBundle\Templating\Helper\UploaderHelper;
 
 #[Route('/admin/recettes', name: 'admin.recipe.')]
 class RecipeController extends AbstractController
@@ -135,7 +136,8 @@ class RecipeController extends AbstractController
     //sans importer l'entité
     //public function edit(int $id) {
     //le framework va trouver tout seul le find($id) et trouver l'objet recette
-    public function edit(Recipe $recipe, Request $request, EntityManagerInterface $em) {
+    public function edit(Recipe $recipe, Request $request, EntityManagerInterface $em, UploaderHelper $helper) {
+        $fileUrl = $helper->asset($recipe, 'thumbnailFile');
 
         // créer le formulaire en indiquant le Type à utiliser + les données
         $form = $this->createForm(RecipeType::class, $recipe);
