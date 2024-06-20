@@ -139,13 +139,29 @@ class RecipeController extends AbstractController
 
         // créer le formulaire en indiquant le Type à utiliser + les données
         $form = $this->createForm(RecipeType::class, $recipe);
+        $form->handleRequest($request);
+
         //vérifie si le formulaire a été soumis, 
         //si oui, modifie l'entité avec ses données (utilise les setters)
-        $form->handleRequest($request);
         if ($form->isSubmitted() && $form->isValid()) {
-            $recipe->setUpdatedAt(new DateTimeImmutable());
-            $em->flush();
 
+            $recipe->setUpdatedAt(new DateTimeImmutable());
+
+            /** @var UploadedFile $file */
+            $file = $form->get('thumbnailFile')->getData();
+            //on crée le nom du fichier en récupérant l'extesion du fichier d'origine
+            $filename = $recipe->getId() . '.' . $file->getClientOriginalExtension();
+            //un objet de type UploadedFile dispose de cette méthode
+            //on déplace le 2e élément (fichier) dans le 1e élément (dossier)
+            $file->move($this->getParameter('kernel.project_dir') . '/public/recettes/images', $filename);
+            //on enregistre le nom du fichier pour la bdd
+            $recipe->setThumbnail($filename);
+
+/*             //récupérer nom et extension du fichier
+            $file->getClientOriginalName();
+            $file->getClientOriginalExtension();
+ */
+            $em->flush();
             $this->addFlash('success', "La recette a bien été modifiée");
 
             return $this->redirectToRoute('admin.recipe.index');

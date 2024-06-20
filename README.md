@@ -46,18 +46,19 @@ Voir le dossier documentation/ pour plus de détails.
 
 ## Thèmes
 
-1. Installation
-2. Premières pages & contrôleures
-3. Twig + Boostrap
-4. Doctrine
-5. Formulaires
-6. Validation
-7. Services
-8. TP Formulaire de contact
-9. TP Catégories
+1. Découverte
+2. Installation
+3. Premières pages & contrôleures
+4. Twig + Boostrap
+5. Doctrine
+6. Formulaires
+7. Validation
+8. Services
+9. TP Formulaire de contact
+10. TP Catégories
+11. ORM Many to One
+12. Envoi de fichiers
 
-- ORM Many to One
-- Envoi de fichiers
 - Composant Security
 
 - Pagination

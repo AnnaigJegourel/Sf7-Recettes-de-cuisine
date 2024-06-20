@@ -6,6 +6,10 @@
 
     <h1>{{ recipe.title }}</h1>
 
+    <p>
+        <img src="/recettes/images/{{ recipe.thumbnail }}" alt="">
+    </p>
+
     {# la fonction qui permet de passer un formulaire + la variable envoyée par le contrôleur #}
     {{ form(form) }}
 
