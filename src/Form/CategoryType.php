@@ -29,6 +29,7 @@ class CategoryType extends AbstractType
                 "required" => false,
                 "empty_data" => ""
             ])
+/*             //si on voulait modifier le lien recette-catégorie depuis le formulaire des catégories
             ->add('recipes', EntityType::class, [
                 'class' => Recipe::class,
                 //menu de labels corresopndant au champ title
@@ -40,7 +41,7 @@ class CategoryType extends AbstractType
                 //pour que ce soit enregistré en bdd car utilise add() et remove() plutôt que chercher un setter
                 'by_reference' => false
             ])
-            ->add('save', SubmitType::class, [
+ */            ->add('save', SubmitType::class, [
                 "label" => "Enregistrer"
             ])
             ->addEventListener(FormEvents::PRE_SUBMIT, $this->listenerFactory->autoSlug('name'))

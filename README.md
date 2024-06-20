@@ -21,8 +21,13 @@ Voir le dossier documentation/ pour plus de détails.
 
 <https://symfony.com/doc/current/reference>
 
+#### Forms
+
 <https://symfony.com/doc/current/reference/forms/types/form.html#validation-groups>
 <https://symfony.com/doc/current/reference/forms/types/entity.html>
+<https://symfony.com/doc/current/reference/forms/types/entity.html#by-reference>
+
+#### E-mails
 
 <https://symfony.com/doc/current/reference/constraints/Email.html>
 <https://symfony.com/doc/current/mailer.html>
