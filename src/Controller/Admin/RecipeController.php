@@ -50,6 +50,8 @@ class RecipeController extends AbstractController
     #[Route('/', name: 'index')]
     public function index(Request $request, RecipeRepository $repository, EntityManagerInterface $em): Response
     {
+        $this->denyAccessUnlessGranted('ROLE_USER');
+
         //dd($repository->findTotalDuration());
         $recipes = $repository->findAll();
         //dd($recipes);
