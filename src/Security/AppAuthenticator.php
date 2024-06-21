@@ -2,6 +2,7 @@
 
 namespace App\Security;
 
+use App\Repository\UserRepository;
 use Symfony\Component\HttpFoundation\RedirectResponse;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
@@ -22,7 +23,9 @@ class AppAuthenticator extends AbstractLoginFormAuthenticator
 
     public const LOGIN_ROUTE = 'app_login';
 
-    public function __construct(private UrlGeneratorInterface $urlGenerator)
+    public function __construct(
+        private UrlGeneratorInterface $urlGenerator, 
+        private UserRepository $userRepository)
     {
     }
 
@@ -35,7 +38,11 @@ class AppAuthenticator extends AbstractLoginFormAuthenticator
 
         //Passport est un objet du composant Security qui détermine si onAuthenticationSuccess() ou onAuthenticationFailure()
         return new Passport(
-            new UserBadge($username),
+            //customisation pour prendre aussi l'email comme identifiant
+            new UserBadge($username, fn(string $identifier) => $this->userRepository->findUserByEmailOrUsername($identifier)),
+            //version fonction non fléchée
+            //new UserBadge($username, function(string $identifier){...}),
+
             //vérifie mot de passe haché (bdd) ; vérifie csrf token ; rememberMe (crée cookie)
             new PasswordCredentials($request->getPayload()->getString('password')),
             [
