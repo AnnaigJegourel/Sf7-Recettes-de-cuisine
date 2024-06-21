@@ -18,7 +18,7 @@ use Symfony\Component\Security\Http\Util\TargetPathTrait;
 
 class AppAuthenticator extends AbstractLoginFormAuthenticator
 {
-    use TargetPathTrait;
+    use TargetPathTrait;    //cf. ci-dessous onAuthenticationSuccess
 
     public const LOGIN_ROUTE = 'app_login';
 
@@ -26,14 +26,17 @@ class AppAuthenticator extends AbstractLoginFormAuthenticator
     {
     }
 
+    //fonction héritée de AbstractLoginFormAuthenticator
     public function authenticate(Request $request): Passport
     {
         $username = $request->getPayload()->getString('username');
 
         $request->getSession()->set(SecurityRequestAttributes::LAST_USERNAME, $username);
 
+        //Passport est un objet du composant Security qui détermine si onAuthenticationSuccess() ou onAuthenticationFailure()
         return new Passport(
             new UserBadge($username),
+            //vérifie mot de passe haché (bdd) ; vérifie csrf token ; rememberMe (crée cookie)
             new PasswordCredentials($request->getPayload()->getString('password')),
             [
                 new CsrfTokenBadge('authenticate', $request->getPayload()->getString('_csrf_token')),
@@ -44,13 +47,18 @@ class AppAuthenticator extends AbstractLoginFormAuthenticator
 
     public function onAuthenticationSuccess(Request $request, TokenInterface $token, string $firewallName): ?Response
     {
+        //Par défaut, redirige l’U vers la page cherchée au début (géré par TargetPathTrait)
         if ($targetPath = $this->getTargetPath($request->getSession(), $firewallName)) {
             return new RedirectResponse($targetPath);
         }
 
-        // For example:
-        // return new RedirectResponse($this->urlGenerator->generate('some_route'));
-        throw new \Exception('TODO: provide a valid redirect inside '.__FILE__);
+        //on peut ajouter sa propre redirection...
+        //...en utilisant UrlGeneratorInterface (injecté dans constructeur ci-dessus)
+        //return new RedirectResponse($this->urlGenerator->generate('admin.recipe.index'));
+        //... ou sans
+        return new RedirectResponse('/');
+
+        //throw new \Exception('TODO: provide a valid redirect inside '.__FILE__);
     }
 
     protected function getLoginUrl(Request $request): string
