@@ -58,8 +58,7 @@ Voir le dossier documentation/ pour plus de détails.
 10. TP Catégories
 11. ORM Many to One
 12. Envoi de fichiers
-
-- Composant Security
+13. Composant [Security](https://symfony.com/doc/current/security.html)
 
 - Pagination
 - Doctrine avancé
