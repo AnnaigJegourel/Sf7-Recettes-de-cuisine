@@ -16,6 +16,12 @@
         </div>
     {% endif %}
 
+    {% if is_granted('ROLE_ADMIN') %}
+        <div class="mb-3">
+            Tu vois ce lien en plus : <a href="{{ path('app_logout') }}">veinard*e !</a>
+        </div>
+    {% endif %}
+
     {# champs de formulaire classique #}
     <h1 class="h3 mb-3 font-weight-normal">Please sign in</h1>
     <label for="inputUsername">Username</label>
