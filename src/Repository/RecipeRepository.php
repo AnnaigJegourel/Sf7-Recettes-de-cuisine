@@ -26,9 +26,14 @@ class RecipeRepository extends ServiceEntityRepository
     {
         //fonction prédéfinie dans le paginator knp
         return $this->paginator->paginate(
-            $this->createQueryBuilder('r'),
+            $this->createQueryBuilder('r')->leftJoin('r.category', 'c')->select('r', 'c'),
             $page,
-            20
+            20,
+            //options pour sécuriser le tri par propriété
+            [
+                'distinct' => true,
+                'sortFieldAllowList' => ['r.id', 'r.title', 'c.name']
+            ]
         );
     }
 
