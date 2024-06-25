@@ -19,12 +19,13 @@ class RecipeRepository extends ServiceEntityRepository
     }
 
 
-    public function paginateRecipes(Request $request): Paginator
+    public function paginateRecipes(int $page, int $limit): Paginator
     {
         return new Paginator($this
             ->createQueryBuilder('r')
-            ->setFirstResult(0)
-            ->setMaxResults(2)
+            //si page 1, commencer à la recette 0...
+            ->setFirstResult(($page - 1) * $limit)
+            ->setMaxResults($limit)
             //transforme objet QueryBuilder en Query
             ->getQuery()
             //passe petites infos pour mieux gérer requêtes SQL

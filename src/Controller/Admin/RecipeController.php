@@ -55,9 +55,14 @@ class RecipeController extends AbstractController
     // #[IsGranted('ROLE_USER')]
     public function index(Request $request, RecipeRepository $repository, EntityManagerInterface $em): Response
     {
+        //récupérer la page courante (valeur 1 par défaut)
+        $page = $request->query->getInt('page', 1);
+        //définir le nombre de recette par page
+        $limit = 2;
         //avec pagination
-        $recipes = $repository->paginateRecipes($request);
-        //dd($recipes->count()); //récupérer le nombre total de recettes
+        $recipes = $repository->paginateRecipes($page, $limit);
+        //récupérer le nombre total de recettes & le diviser par le nb de recettes par page, arrondi à virgule sup
+        $maxPage = ceil($recipes->count() / 2);
         
         //$this->denyAccessUnlessGranted('ROLE_USER');
 
@@ -90,7 +95,9 @@ class RecipeController extends AbstractController
 
         return $this->render('admin/recipe/index.html.twig', [
             'recipes' => $recipes,
-            'recipes10' => $recipes10
+            'recipes10' => $recipes10,
+            'maxPage' => $maxPage,
+            'page' => $page
         ]);
 
         // code donné par défaut

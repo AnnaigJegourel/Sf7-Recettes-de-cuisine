@@ -12,7 +12,7 @@ syntaxe raccourcie#}
         <a class="btn btn-primary btn-sm" href={{ url('admin.recipe.create') }}>Créer une recette</a>
     </p>
 
-    <h2>Toutes :</h2>
+    <h2>Toutes les recettes PAGINEES</h2>
     <table class="table">
         <thead>
             <tr>
@@ -44,7 +44,14 @@ syntaxe raccourcie#}
         </tbody>
     </table>
 
-
+    <div class="d-flex">
+        {% if page > 1 %}
+            <a class="btn btn-secondary" href="{{ path('admin.recipe.index', {page: page - 1}) }}">page précédente</a>
+        {% endif %}
+        {% if page < maxPage %}
+            <a class="btn btn-secondary" href="{{ path('admin.recipe.index', {page: page + 1}) }}">page suivante</a>
+        {% endif %}
+    </div>
 
     <h2>En moins de 10 min!</h2>
     <table class="table">
