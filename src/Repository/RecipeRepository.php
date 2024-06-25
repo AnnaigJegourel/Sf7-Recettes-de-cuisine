@@ -22,13 +22,13 @@ class RecipeRepository extends ServiceEntityRepository
     }
 
     //avec Knp paginator
-    public function paginateRecipes(int $page, int $limit): PaginationInterface
+    public function paginateRecipes(int $page): PaginationInterface
     {
         //fonction prédéfinie dans le paginator knp
         return $this->paginator->paginate(
             $this->createQueryBuilder('r'),
             $page,
-            $limit
+            20
         );
     }
 
