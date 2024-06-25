@@ -19,6 +19,7 @@ use Vich\UploaderBundle\Templating\Helper\UploaderHelper;
 
 #[Route('/admin/recettes', name: 'admin.recipe.')]
 #[IsGranted('ROLE_ADMIN')]
+//#[IsGranted('ROLE_USER')]
 class RecipeController extends AbstractController
 {
 
@@ -54,24 +55,28 @@ class RecipeController extends AbstractController
     // #[IsGranted('ROLE_USER')]
     public function index(Request $request, RecipeRepository $repository, EntityManagerInterface $em): Response
     {
+        //avec pagination
+        $recipes = $repository->paginateRecipes($request);
+        //dd($recipes->count()); //récupérer le nombre total de recettes
+        
         //$this->denyAccessUnlessGranted('ROLE_USER');
 
         //dd($repository->findTotalDuration());
-        $recipes = $repository->findAll();
+        //$recipes = $repository->findAll();
         //dd($recipes);
 
         // Modifier un enregistrement
         //$recipes[0]->setTitle("Pâtes boloniaises") ;
 
         // Créer un nouvel enregistrement
-        $recipe = new Recipe;
+/*         $recipe = new Recipe;
         $recipe->setTitle('Barbe à papa')
             ->setSlug('barbe-a-papa')
             ->setContent('Mettez du sucre')
             ->setDuration(2)
             ->setCreatedAt(new \DateTimeImmutable())
             ->setUpdatedAt(new \DateTimeImmutable());
-
+ */
         // l'entity manager doit enregistrer la présente de ce nouvel objet
         //$em->persist($recipe);
 

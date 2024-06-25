@@ -4,7 +4,9 @@ namespace App\Repository;
 
 use App\Entity\Recipe;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
+use Doctrine\ORM\Tools\Pagination\Paginator;
 use Doctrine\Persistence\ManagerRegistry;
+use Symfony\Component\HttpFoundation\Request;
 
 /**
  * @extends ServiceEntityRepository<Recipe>
@@ -15,6 +17,17 @@ class RecipeRepository extends ServiceEntityRepository
     {
         parent::__construct($registry, Recipe::class);
     }
+
+
+    public function paginateRecipes(Request $request): Paginator
+    {
+        return new Paginator($this
+            ->createQueryBuilder('r')
+            ->setFirstResult(0)
+            ->setMaxResults(2)
+        );
+    }
+
 
     public function findTotalDuration()
     {
