@@ -19,6 +19,7 @@ use Vich\UploaderBundle\Templating\Helper\UploaderHelper;
 
 #[Route('/admin/recettes', name: 'admin.recipe.')]
 #[IsGranted('ROLE_ADMIN')]
+//#[IsGranted('ROLE_USER')]
 class RecipeController extends AbstractController
 {
 
@@ -54,24 +55,39 @@ class RecipeController extends AbstractController
     // #[IsGranted('ROLE_USER')]
     public function index(Request $request, RecipeRepository $repository, EntityManagerInterface $em): Response
     {
+        //récupérer la page courante (valeur 1 par défaut)
+        $page = $request->query->getInt('page', 1);
+        //définir le nombre de recette par page (sans knp)
+        //$limit = 2;
+        
+        //avec pagination knp template
+        $recipes = $repository->paginateRecipes($page);
+        
+        //avec pagination sans knp template
+        // $recipes = $repository->paginateRecipes($page, $limit);
+        //récupérer le nombre total de recettes & le diviser par le nb de recettes par page, arrondi à virgule sup
+        //$maxPage = ceil($recipes->getTotalItemCount() / 2);
+        //sans knp
+        //$maxPage = ceil($recipes->count() / 2);
+        
         //$this->denyAccessUnlessGranted('ROLE_USER');
 
         //dd($repository->findTotalDuration());
-        $recipes = $repository->findAll();
+        //$recipes = $repository->findAll();
         //dd($recipes);
 
         // Modifier un enregistrement
         //$recipes[0]->setTitle("Pâtes boloniaises") ;
 
         // Créer un nouvel enregistrement
-        $recipe = new Recipe;
+/*         $recipe = new Recipe;
         $recipe->setTitle('Barbe à papa')
             ->setSlug('barbe-a-papa')
             ->setContent('Mettez du sucre')
             ->setDuration(2)
             ->setCreatedAt(new \DateTimeImmutable())
             ->setUpdatedAt(new \DateTimeImmutable());
-
+ */
         // l'entity manager doit enregistrer la présente de ce nouvel objet
         //$em->persist($recipe);
 
@@ -86,6 +102,8 @@ class RecipeController extends AbstractController
         return $this->render('admin/recipe/index.html.twig', [
             'recipes' => $recipes,
             'recipes10' => $recipes10
+            //'maxPage' => $maxPage,        //utiles si pas knp template
+            //'page' => $page
         ]);
 
         // code donné par défaut

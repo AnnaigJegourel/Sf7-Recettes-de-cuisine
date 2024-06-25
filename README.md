@@ -59,8 +59,11 @@ Voir le dossier documentation/ pour plus de détails.
 11. ORM Many to One
 12. Envoi de fichiers
 13. Composant [Security](https://symfony.com/doc/current/security.html)
+14. Pagination:
 
-- Pagination
+    - [Doctrine Paginator](https://www.doctrine-project.org/projects/doctrine-orm/en/3.2/tutorials/pagination.html)
+    - [KnpPaginatorBundle](https://github.com/KnpLabs/KnpPaginatorBundle)
+
 - Doctrine avancé
 - AssetMapper
 - API 1: Serializer
