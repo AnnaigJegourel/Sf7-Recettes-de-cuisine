@@ -25,6 +25,10 @@ class RecipeRepository extends ServiceEntityRepository
             ->createQueryBuilder('r')
             ->setFirstResult(0)
             ->setMaxResults(2)
+            //transforme objet QueryBuilder en Query
+            ->getQuery()
+            //passe petites infos pour mieux gérer requêtes SQL
+            ->setHint(Paginator::HINT_ENABLE_DISTINCT, false)
         );
     }
 
