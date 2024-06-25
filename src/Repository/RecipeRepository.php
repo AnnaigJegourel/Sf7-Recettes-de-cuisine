@@ -6,6 +6,9 @@ use App\Entity\Recipe;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 use Doctrine\ORM\Tools\Pagination\Paginator;
 use Doctrine\Persistence\ManagerRegistry;
+use Knp\Component\Pager\Pagination\PaginationInterface;
+use Knp\Component\Pager\Paginator as PagerPaginator;
+use Knp\Component\Pager\PaginatorInterface;
 use Symfony\Component\HttpFoundation\Request;
 
 /**
@@ -13,13 +16,24 @@ use Symfony\Component\HttpFoundation\Request;
  */
 class RecipeRepository extends ServiceEntityRepository
 {
-    public function __construct(ManagerRegistry $registry)
+    public function __construct(ManagerRegistry $registry, private PaginatorInterface $paginator)
     {
         parent::__construct($registry, Recipe::class);
     }
 
+    //avec Knp paginator
+    public function paginateRecipes(int $page, int $limit): PaginationInterface
+    {
+        //fonction prédéfinie dans le paginator knp
+        return $this->paginator->paginate(
+            $this->createQueryBuilder('r'),
+            $page,
+            $limit
+        );
+    }
 
-    public function paginateRecipes(int $page, int $limit): Paginator
+    //avec le Paginator de Doctrine
+/*     public function paginateRecipes(int $page, int $limit): Paginator
     {
         return new Paginator($this
             ->createQueryBuilder('r')
@@ -32,7 +46,7 @@ class RecipeRepository extends ServiceEntityRepository
             ->setHint(Paginator::HINT_ENABLE_DISTINCT, false)
         );
     }
-
+ */
 
     public function findTotalDuration()
     {

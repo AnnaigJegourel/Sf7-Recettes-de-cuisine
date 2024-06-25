@@ -62,7 +62,9 @@ class RecipeController extends AbstractController
         //avec pagination
         $recipes = $repository->paginateRecipes($page, $limit);
         //récupérer le nombre total de recettes & le diviser par le nb de recettes par page, arrondi à virgule sup
-        $maxPage = ceil($recipes->count() / 2);
+        $maxPage = ceil($recipes->getTotalItemCount() / 2);
+        //sans knp
+        //$maxPage = ceil($recipes->count() / 2);
         
         //$this->denyAccessUnlessGranted('ROLE_USER');
 
