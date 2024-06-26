@@ -16,6 +16,18 @@ class CategoryRepository extends ServiceEntityRepository
         parent::__construct($registry, Category::class);
     }
 
+
+    public function findAllWithCount(): array
+    {
+        return $this->createQueryBuilder('c')                   //crée un QueryBuilder pour l'entité courante
+            ->select('c as category', 'COUNT(c.id) as total')   // renvoie les identifiants des catégories & compte le nombre de recettes associées à chaque catégorie
+            ->leftJoin('c.recipes', 'r')        //jointure externe avec la relation recipes de l'entité
+            ->groupBy('c.id')       //groupe les résultats par identifiant de catégorie, nécessaire pour compter le total de recettes par catégorie
+            ->getQuery()
+            ->getResult();
+    }
+
+
     //    /**
     //     * @return Category[] Returns an array of Category objects
     //     */
