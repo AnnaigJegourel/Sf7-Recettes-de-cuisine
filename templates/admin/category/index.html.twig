@@ -19,13 +19,14 @@
         <tbody>
             {% for category in categories %}
             <tr>
-                {# on recoit un tableau avec la clé 'category' #}
-                <td>{{ category.category.name }}</td>
-                <td>{{ category.total }}</td>
+                {# si on recoit un tableau avec la clé 'category' (select with count sans dto) #}
+                {# <td>{{ category.category.name }}</td> #}
+                <td>{{ category.name }}</td>
+                <td>{{ category.count }}</td>
                 <td>
                     <div class="d-flex gap-1">
-                        <a class="btn btn-primary" href="{{ path("admin.category.edit", {id: category.category.id}) }}">Editer</a>
-                        <form action="{{ path("admin.category.delete", {id: category.category.id}) }}" method="post">
+                        <a class="btn btn-primary" href="{{ path("admin.category.edit", {id: category.id}) }}">Editer</a>
+                        <form action="{{ path("admin.category.delete", {id: category.id}) }}" method="post">
                             <input type="hidden" name="_method" value="DELETE">
                             <button class="btn btn-danger" type="submit">Supprimer</button>
                         </form>
