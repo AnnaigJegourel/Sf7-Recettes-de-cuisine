@@ -26,13 +26,13 @@ class CategoryRepository extends ServiceEntityRepository
     public function findAllWithCount(): array
     {
         //générer du DQL:
-        dd(
+/*         dd(
             $this->getEntityManager()->createQuery( 
                 'SELECT c 
                 FROM App\Entity\Category c'
             )->getResult()
         );
-
+ */
         return $this->createQueryBuilder('c')                   //crée un QueryBuilder pour l'entité courante
             // renvoie les identifiants des catégories & compte le nombre de recettes associées à chaque catégorie
             //->select('c as category', 'COUNT(c.id) as total') //sans DTO

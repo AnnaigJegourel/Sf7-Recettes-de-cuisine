@@ -64,7 +64,7 @@ Voir le dossier documentation/ pour plus de détails.
     - [Doctrine Paginator](https://www.doctrine-project.org/projects/doctrine-orm/en/3.2/tutorials/pagination.html)
     - [KnpPaginatorBundle](https://github.com/KnpLabs/KnpPaginatorBundle)
 
-15. Doctrine avancé, select partiel et DQL
+15. Doctrine avancé
 
 - AssetMapper
 - API 1: Serializer
