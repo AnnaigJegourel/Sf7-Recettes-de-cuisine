@@ -65,8 +65,8 @@ Voir le dossier documentation/ pour plus de détails.
     - [KnpPaginatorBundle](https://github.com/KnpLabs/KnpPaginatorBundle)
 
 15. Doctrine avancé
+16. [AssetMapper](https://symfony.com/doc/current/frontend/asset_mapper.html)
 
-- AssetMapper
 - API 1: Serializer
 
 - API 2 : Désérialisation & MapRequestPayLoad
