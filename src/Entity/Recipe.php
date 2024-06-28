@@ -21,14 +21,14 @@ class Recipe
     #[ORM\Id]
     #[ORM\GeneratedValue]
     #[ORM\Column]
-    #[Groups(['recipes.index'])]
+    #[Groups(['recipes.index', 'recipes.show'])]
     private ?int $id = null;
 
     #[ORM\Column(length: 255)]
     //contrainte de validation
     #[Assert\Length(min: 5)]
     #[BanWord()]
-    #[Groups(['recipes.index'])]
+    #[Groups(['recipes.index', 'recipes.show'])]
     private string $title = '';
 
     #[ORM\Column(length: 255)]
@@ -37,17 +37,20 @@ class Recipe
         "/^[a-z0-9]+(?:-[a-z0-9]+)*$/", 
         message: "Certains caractères ne sont pas acceptés."
     )]
-    #[Groups(['recipes.index'])]
+    #[Groups(['recipes.index', 'recipes.show'])]
     private ?string $slug = null;
 
     #[ORM\Column(type: Types::TEXT)]
     #[Assert\Length(min: 5)]
+    #[Groups(['recipes.show'])]
     private string $content = '';
 
     #[ORM\Column]
+    #[Groups(['recipes.show'])]
     private ?\DateTimeImmutable $createdAt = null;
 
     #[ORM\Column]
+    #[Groups(['recipes.show'])]
     private ?\DateTimeImmutable $updatedAt = null;
 
     #[ORM\Column(nullable: true)]
@@ -56,11 +59,11 @@ class Recipe
     //Valeur non nulle
     //#[Assert\NotBlank()]
     #[Assert\LessThan(value: 1440)]
-    #[Groups(['recipes.index'])]
+    #[Groups(['recipes.index', 'recipes.show'])]
     private ?int $duration;
 
     #[ORM\ManyToOne(inversedBy: 'recipes', cascade: ['persist'])]
-    #[Groups(['recipes.index'])]
+    #[Groups(['recipes.index', 'recipes.show'])]
     private ?Category $category = null;
 
     #[ORM\Column(length: 255, nullable: true)]
