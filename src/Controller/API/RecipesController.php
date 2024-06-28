@@ -6,14 +6,17 @@ use App\Entity\Recipe;
 use App\Repository\RecipeRepository;
 use Symfony\Component\Routing\Attribute\Route;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
+use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\Routing\Requirement\Requirement;
 
 class RecipesController extends AbstractController
 {
     #[Route("/api/recipes")]
-    public function index(RecipeRepository $repository)
+    public function index(RecipeRepository $repository, Request $request)
     {
-        $recipes = $repository->findAll();
+        //$recipes = $repository->findAll();
+        //avec pagination :
+        $recipes = $repository->paginateRecipes($request->query->getInt('page', 1));
 
         return $this->json($recipes, 200, [], [
             'groups' => ['recipes.index']
