@@ -67,8 +67,8 @@ Voir le dossier documentation/ pour plus de détails.
 15. Doctrine avancé
 16. [AssetMapper](https://symfony.com/doc/current/frontend/asset_mapper.html)
 17. API 1: [Serializer](https://symfony.com/doc/current/components/serializer.html)
+18. API 2 : Désérialisation & MapRequestPayLoad
 
-- API 2 : Désérialisation & MapRequestPayLoad
 - API 3 : Authenticator stateless
 - Fixtures
 - Voters
