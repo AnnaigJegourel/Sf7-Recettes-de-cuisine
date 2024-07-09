@@ -2,6 +2,7 @@
 
 namespace App\Controller\API;
 
+use App\DTO\PaginationDTO;
 use App\Entity\Recipe;
 use App\Repository\RecipeRepository;
 use DateTimeImmutable;
@@ -9,6 +10,7 @@ use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Component\Routing\Attribute\Route;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
+use Symfony\Component\HttpKernel\Attribute\MapQueryString;
 use Symfony\Component\HttpKernel\Attribute\MapRequestPayload;
 use Symfony\Component\Routing\Requirement\Requirement;
 use Symfony\Component\Serializer\Normalizer\AbstractNormalizer;
@@ -17,11 +19,19 @@ use Symfony\Component\Serializer\SerializerInterface;
 class RecipesController extends AbstractController
 {
     #[Route("/api/recipes", methods: ['GET'])]
-    public function index(RecipeRepository $repository, Request $request)
+    public function index(
+        RecipeRepository $repository, 
+        Request $request,
+        SerializerInterface $serializer,
+        #[MapQueryString()]
+        ?PaginationDTO $paginationDTO = null)
     {
+        //en utilisant PaginationDTO
+        $recipes = $repository->paginateRecipes($paginationDTO->page);
+
         //$recipes = $repository->findAll();
         //avec pagination :
-        $recipes = $repository->paginateRecipes($request->query->getInt('page', 1));
+        //$recipes = $repository->paginateRecipes($request->query->getInt('page', 1));
 
         return $this->json($recipes, 200, [], [
             'groups' => ['recipes.index']
