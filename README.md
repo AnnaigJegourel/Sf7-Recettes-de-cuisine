@@ -70,12 +70,13 @@ Voir le dossier documentation/ pour plus de détails.
 18. API 2 : Désérialisation & MapRequestPayLoad
 
 - API 3 : Authenticator stateless
+
 - Fixtures
 - Voters
-
 - Evénements
+
 - Symfony UX
-- Formualaires imbriqués
+- Formulaires imbriqués
 - Messenger
 
 - Internationalisation

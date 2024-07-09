@@ -46,12 +46,17 @@ class RecipesController extends AbstractController
         $recipe->setUpdatedAt(new DateTimeImmutable());
 
         //paramètres: données à désérialiser, type à rendre, format à traiter, contexte
-        dd($serializer->deserialize($request->getContent(), Recipe::class, 'json', [
-            //utiliser cette constante pour remplir l'objet déjà créé au lieu d'en créer un nouveau
-            AbstractNormalizer::OBJECT_TO_POPULATE => $recipe,
-            //préciser ce qui peut être modifié
-            'groups' => ['recipes.create']
-        ]));
+        dd($serializer->deserialize(
+            $request->getContent(), 
+            Recipe::class, 
+            'json',
+            [
+                //utiliser cette constante pour remplir l'objet déjà créé au lieu d'en créer un nouveau
+                AbstractNormalizer::OBJECT_TO_POPULATE => $recipe,
+                //préciser ce qui peut être modifié
+                'groups' => ['recipes.create']
+            ]
+        ));
 
         return $this;
     }
