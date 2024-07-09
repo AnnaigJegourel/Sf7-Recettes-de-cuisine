@@ -5,9 +5,11 @@ namespace App\Controller\API;
 use App\Entity\Recipe;
 use App\Repository\RecipeRepository;
 use DateTimeImmutable;
+use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Component\Routing\Attribute\Route;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
+use Symfony\Component\HttpKernel\Attribute\MapRequestPayload;
 use Symfony\Component\Routing\Requirement\Requirement;
 use Symfony\Component\Serializer\Normalizer\AbstractNormalizer;
 use Symfony\Component\Serializer\SerializerInterface;
@@ -38,7 +40,26 @@ class RecipesController extends AbstractController
 
 
     #[Route("/api/recipes", methods: ['POST'])]
-    public function create(Request $request, SerializerInterface $serializer)
+    public function create(
+        Request $request,
+        #[MapRequestPayload(serializationContext: ['groups' => ['recipes.create']])]
+        Recipe $recipe,
+        EntityManagerInterface $em)
+    {
+        $recipe->setCreatedAt(new DateTimeImmutable());
+        $recipe->setUpdatedAt(new DateTimeImmutable());
+        $em->persist($recipe);
+        $em->flush();
+
+        return $this->json(
+            $recipe,
+            200,
+            [],
+            ['groups' => 'recipes.create']
+        );
+    }
+    //en utilisant le SerializerInterface, sans créer automatiquement l'objet à partir des données de l'API
+/*     public function create(Request $request, SerializerInterface $serializer)
     {
         //créer un objet à remplir avec les données une fois désérialisées
         $recipe = new Recipe();
@@ -57,8 +78,6 @@ class RecipesController extends AbstractController
                 'groups' => ['recipes.create']
             ]
         ));
-
-        return $this;
     }
-
+ */
 }

@@ -37,7 +37,7 @@ class Recipe
         "/^[a-z0-9]+(?:-[a-z0-9]+)*$/", 
         message: "Certains caractères ne sont pas acceptés."
     )]
-    #[Groups(['recipes.index', 'recipes.show'])]
+    #[Groups(['recipes.index', 'recipes.show', 'recipes.create'])]
     private ?string $slug = null;
 
     #[ORM\Column(type: Types::TEXT)]
