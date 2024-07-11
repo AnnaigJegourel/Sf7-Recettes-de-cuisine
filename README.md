@@ -69,7 +69,10 @@ Voir le dossier documentation/ pour plus de détails.
 17. API 1: [Serializer](https://symfony.com/doc/current/components/serializer.html)
 18. API 2 : Désérialisation & MapRequestPayLoad
 19. API 3 : Authenticator stateless
-20. Fixtures : [DoctrineFixturesBundle](https://symfony.com/bundles/DoctrineFixturesBundle/current/index.html)
+20. Fixtures : 
+
+    - [DoctrineFixturesBundle](https://symfony.com/bundles/DoctrineFixturesBundle/current/index.html)
+    - [Faker](https://fakerphp.org/)
 
 - Voters
 - Evénements
