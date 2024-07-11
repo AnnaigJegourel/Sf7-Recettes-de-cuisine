@@ -31,7 +31,7 @@ class Recipe
     #[Groups(['recipes.index', 'recipes.show', 'recipes.create'])]
     private string $title = '';
 
-    #[ORM\Column(length: 255)]
+    #[ORM\Column(length: 255, nullable:true)]
     #[Assert\Length(min: 5)]
     #[Assert\Regex(
         "/^[a-z0-9]+(?:-[a-z0-9]+)*$/", 
@@ -72,6 +72,9 @@ class Recipe
     #[Vich\UploadableField(mapping: 'recipes', fileNameProperty: 'thumbnail')]
     #[Assert\Image()]
     private ?File $thumbnailFile = null;
+
+    #[ORM\ManyToOne(inversedBy: 'recipes')]
+    private ?User $author = null;
     
 
     public function getId(): ?int
@@ -192,6 +195,18 @@ class Recipe
     public function setThumbnailFile(?File $thumbnailFile) : static
     {
         $this->thumbnailFile = $thumbnailFile;
+
+        return $this;
+    }
+
+    public function getAuthor(): ?User
+    {
+        return $this->author;
+    }
+
+    public function setAuthor(?User $author): static
+    {
+        $this->author = $author;
 
         return $this;
     }

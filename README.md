@@ -69,8 +69,15 @@ Voir le dossier documentation/ pour plus de détails.
 17. API 1: [Serializer](https://symfony.com/doc/current/components/serializer.html)
 18. API 2 : Désérialisation & MapRequestPayLoad
 19. API 3 : Authenticator stateless
+20. Fixtures : 
 
-- Fixtures
+    - [DoctrineFixturesBundle](https://symfony.com/bundles/DoctrineFixturesBundle/current/index.html)
+    - [Faker](https://fakerphp.org/)
+
+## TO DO
+
+Chapitres à voir :
+
 - Voters
 - Evénements
 
@@ -81,3 +88,8 @@ Voir le dossier documentation/ pour plus de détails.
 - Internationalisation
 - Hébergement Infomaniak
 - Hébergement O2Switch
+
+à corriger:
+
+- Fixtures : titres en arabe !? (voir doc faker & fakerrestaurant : versions ? paramétrage de la locale?)
+- Fixtures : revoir addReference() / setReference()
