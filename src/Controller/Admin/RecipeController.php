@@ -18,8 +18,8 @@ use Vich\UploaderBundle\Templating\Helper\UploaderHelper;
 
 
 #[Route('/admin/recettes', name: 'admin.recipe.')]
-#[IsGranted('ROLE_ADMIN')]
-//#[IsGranted('ROLE_USER')]
+//#[IsGranted('ROLE_ADMIN')]
+#[IsGranted('ROLE_USER')]
 class RecipeController extends AbstractController
 {
 

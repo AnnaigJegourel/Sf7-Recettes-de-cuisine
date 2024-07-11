@@ -74,7 +74,7 @@ Voir le dossier documentation/ pour plus de détails.
     - [DoctrineFixturesBundle](https://symfony.com/bundles/DoctrineFixturesBundle/current/index.html)
     - [Faker](https://fakerphp.org/)
 
-21. Voters
+21. [Voters](https://symfony.com/doc/current/security/voters.html)
 
 ## TO DO
 
