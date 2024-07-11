@@ -74,6 +74,10 @@ Voir le dossier documentation/ pour plus de détails.
     - [DoctrineFixturesBundle](https://symfony.com/bundles/DoctrineFixturesBundle/current/index.html)
     - [Faker](https://fakerphp.org/)
 
+## TO DO
+
+Chapitres à voir :
+
 - Voters
 - Evénements
 
@@ -84,3 +88,7 @@ Voir le dossier documentation/ pour plus de détails.
 - Internationalisation
 - Hébergement Infomaniak
 - Hébergement O2Switch
+
+à corriger:
+
+- Fixtures : titres en arabe !? (voir doc faker & fakerrestaurant : versions ? paramétrage de la locale?)

@@ -6,12 +6,14 @@ use Faker\Factory;
 use App\Entity\Recipe;
 use DateTimeImmutable;
 use App\Entity\Category;
+use App\Entity\User;
 use Doctrine\Persistence\ObjectManager;
 use Doctrine\Bundle\FixturesBundle\Fixture;
+use Doctrine\Common\DataFixtures\DependentFixtureInterface;
 use FakerRestaurant\Provider\ar_SA\Restaurant;
 use Symfony\Component\String\Slugger\SluggerInterface;
 
-class RecipeFixtures extends Fixture
+class RecipeFixtures extends Fixture implements DependentFixtureInterface
 {
     public function __construct(private readonly SluggerInterface $slugger)
     {
@@ -20,7 +22,7 @@ class RecipeFixtures extends Fixture
     public function load(ObjectManager $manager): void
     {
         //on appelle les bundle & bibliothèque tiers qui construisent de fausses données
-        $faker = Factory::create('fr_FR');
+        $faker = Factory::create('de_DE');
         $faker->addProvider(new Restaurant($faker));
 
         //on crée des catégories
@@ -48,10 +50,23 @@ class RecipeFixtures extends Fixture
                 //on utilise la référence de la catégorie pour la rattacher
                 //faker prend un élément aléatoire dans le tableau des catégories
                 ->setCategory($this->getReference($faker->randomElement($categories)))
+                //référence d'un User author
+                ->setAuthor($this->getReference('USER' . $faker->numberBetween(1, 10)))
                 ->setDuration($faker->numberBetween(2, 60));
             $manager->persist($recipe);
         }
 
         $manager->flush();
+    }
+
+
+    /**
+     * Fonction de DependentFixtureInterface
+     *
+     * @return array
+     */
+    public function getDependencies()
+    {
+        return [UserFixtures::class];
     }
 }

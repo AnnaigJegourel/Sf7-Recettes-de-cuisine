@@ -72,6 +72,9 @@ class Recipe
     #[Vich\UploadableField(mapping: 'recipes', fileNameProperty: 'thumbnail')]
     #[Assert\Image()]
     private ?File $thumbnailFile = null;
+
+    #[ORM\ManyToOne(inversedBy: 'recipes')]
+    private ?User $author = null;
     
 
     public function getId(): ?int
@@ -192,6 +195,18 @@ class Recipe
     public function setThumbnailFile(?File $thumbnailFile) : static
     {
         $this->thumbnailFile = $thumbnailFile;
+
+        return $this;
+    }
+
+    public function getAuthor(): ?User
+    {
+        return $this->author;
+    }
+
+    public function setAuthor(?User $author): static
+    {
+        $this->author = $author;
 
         return $this;
     }
