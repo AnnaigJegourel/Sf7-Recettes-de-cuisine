@@ -12,6 +12,8 @@ class RecipeVoter extends Voter
 {
     public const EDIT = 'RECIPE_EDIT';
     public const VIEW = 'RECIPE_VIEW';
+    public const CREATE = 'RECIPE_CREATE';
+    public const LIST = 'RECIPE_LIST';
 
 
     /**
@@ -25,9 +27,14 @@ class RecipeVoter extends Voter
     {
         // code par défaut
         // https://symfony.com/doc/current/security/voters.html
-        //si on a une des permissions définies ci-dessus ET qu'on vérifie la permission sur une instance de Recipe, renvoie true
-        return in_array($attribute, [self::EDIT, self::VIEW])
-            && $subject instanceof \App\Entity\Recipe;
+        return
+            //si on a la permission CREATE ou LIST et pas de sujet
+            in_array($attribute, [self::CREATE, self::LIST]) ||
+            //si on a une des permissions définies ci-dessus ET qu'on vérifie la permission sur une instance de Recipe, renvoie true
+            (
+                in_array($attribute, [self::EDIT, self::VIEW])
+                && $subject instanceof \App\Entity\Recipe
+            );
     }
 
 
@@ -35,7 +42,7 @@ class RecipeVoter extends Voter
      * faire le vote
      *
      * @param string $attribute nom de la permission
-     * @param mixed $subject la recette
+     * @param Recipe|null $subject la recette
      * @param TokenInterface $token au niveau de la sécurité, on y récupère l'user
      * @return boolean
      */
@@ -45,11 +52,6 @@ class RecipeVoter extends Voter
 
         // if the user is anonymous, do not grant access
         if (!$user instanceof User) {
-            return false;
-        }
-
-        //si le sujet n'est pas de type Recipe (ne devrait pas arriver car condition ligne 29)
-        if (!$subject instanceof Recipe) {
             return false;
         }
 
@@ -63,6 +65,8 @@ class RecipeVoter extends Voter
                 break;
 
             case self::VIEW:
+            case self::LIST:
+            case self::CREATE:
                 // logic to determine if the user can VIEW
                 //tout le monde a le droit de voir
                 return true;

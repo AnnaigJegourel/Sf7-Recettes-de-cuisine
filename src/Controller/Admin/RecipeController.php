@@ -27,6 +27,7 @@ class RecipeController extends AbstractController
 
     // -------------- CREATE --------------
     #[Route('/create', name: 'create')]
+    #[IsGranted(RecipeVoter::CREATE)]
     public function create(Request $request, EntityManagerInterface $em)
     {
         // je crée un objet vide à envoyer dans mon formulaire
@@ -54,6 +55,7 @@ class RecipeController extends AbstractController
     // -------------- READ ALL --------------
     #[Route('/', name: 'index')]
     // #[IsGranted('ROLE_USER')]
+    #[IsGranted(RecipeVoter::LIST)]
     public function index(Request $request, RecipeRepository $repository, EntityManagerInterface $em): Response
     {
         //récupérer la page courante (valeur 1 par défaut)

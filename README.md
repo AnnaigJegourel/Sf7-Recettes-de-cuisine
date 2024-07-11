@@ -93,3 +93,5 @@ Chapitres à voir :
 à corriger:
 
 - Fixtures : titres en arabe !? (voir doc faker & fakerrestaurant : versions ? paramétrage de la locale?)
+
+JE SUIS EN TRAIN DE TRAVAILLER SUR LA BRANCHE MASTER : FUSIONNER VERS DEV !!
