@@ -31,7 +31,8 @@ class UserFixtures extends Fixture
             ->setVerified(true)
             ->setPassword($this->hasher->hashPassword($user, 'admin'))
             ->setApiToken('admin_token');
-        //référence à la constante
+        //On crée une référence à la constante 
+        //le nom est 'ADMIN_USER' et l'objet est $user défini ci-dessus
         $this->addReference(self::ADMIN, $user);
         $manager->persist($user);
 
@@ -44,7 +45,8 @@ class UserFixtures extends Fixture
                 ->setVerified(true)
                 ->setPassword($this->hasher->hashPassword($user, '0000'))
                 ->setApiToken("user{$i}");
-            //on ajoute une référence à ses recettes
+            //on crée une référence pour les recettes de l'utilisateur
+            //le nom est par exemple 'USER 4' et l'objet est $user défini ci-dessus
             $this->addReference("USER" . $i, $user);
             $manager->persist($user);
         }

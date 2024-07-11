@@ -6,11 +6,12 @@ use Faker\Factory;
 use App\Entity\Recipe;
 use DateTimeImmutable;
 use App\Entity\Category;
+use App\DataFixtures\UserFixtures;
 use Doctrine\Persistence\ObjectManager;
 use Doctrine\Bundle\FixturesBundle\Fixture;
-use Doctrine\Common\DataFixtures\DependentFixtureInterface;
 use FakerRestaurant\Provider\ar_SA\Restaurant;
 use Symfony\Component\String\Slugger\SluggerInterface;
+use Doctrine\Common\DataFixtures\DependentFixtureInterface;
 
 class RecipeFixtures extends Fixture implements DependentFixtureInterface
 {
@@ -34,6 +35,7 @@ class RecipeFixtures extends Fixture implements DependentFixtureInterface
                 ->setCreatedAt(DateTimeImmutable::createFromMutable($faker->dateTime()));
             $manager->persist($category);
             //on crée une référence pour qu'elle puisse être appelée dans les recettes
+            //le nom est celui de $c (un nom de catégorie) et l'objet est $category défini ci-dessus
             $this->addReference($c, $category);
         }
 
@@ -46,10 +48,11 @@ class RecipeFixtures extends Fixture implements DependentFixtureInterface
                 ->setUpdatedAt(DateTimeImmutable::createFromMutable($faker->dateTime()))
                 ->setCreatedAt(DateTimeImmutable::createFromMutable($faker->dateTime()))
                 ->setContent($faker->paragraphs(10, true))
-                //on utilise la référence de la catégorie pour la rattacher
-                //faker prend un élément aléatoire dans le tableau des catégories
+                //on utilise la référence de la catégorie pour la rattacher à cette recette
+                //faker prend un élément aléatoire dans le tableau des catégories et passe son nom à la référence
                 ->setCategory($this->getReference($faker->randomElement($categories)))
-                //référence d'un User author
+                //on utilise la référence de l'utilisateur, définie dans la dépendance UserFixtures
+                //faker prend un chiffre aléatoire et le concatène pour obtenir le nom
                 ->setAuthor($this->getReference('USER' . $faker->numberBetween(1, 10)))
                 ->setDuration($faker->numberBetween(2, 60));
             $manager->persist($recipe);
