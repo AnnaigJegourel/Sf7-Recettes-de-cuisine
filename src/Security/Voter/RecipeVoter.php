@@ -64,7 +64,8 @@ class RecipeVoter extends Voter
 
             case self::VIEW:
                 // logic to determine if the user can VIEW
-                // return true or false
+                //tout le monde a le droit de voir
+                return true;
                 break;
         }
 

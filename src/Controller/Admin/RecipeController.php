@@ -5,6 +5,7 @@ namespace App\Controller\Admin;
 use App\Entity\Recipe;
 use App\Form\RecipeType;
 use App\Repository\RecipeRepository;
+use App\Security\Voter\RecipeVoter;
 use DateTimeImmutable;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
@@ -157,6 +158,7 @@ class RecipeController extends AbstractController
 
     // -------------- EDIT --------------
     #[Route('/{id}', name: 'edit', requirements: ['id' => '\d+'], methods: ['GET', 'POST'])]
+    #[IsGranted(RecipeVoter::EDIT, subject: 'recipe')]
     //sans importer l'entité
     //public function edit(int $id) {
     //le framework va trouver tout seul le find($id) et trouver l'objet recette
@@ -204,6 +206,7 @@ class RecipeController extends AbstractController
     // -------------- DELETE --------------
     //Requirement = énumérateur avec les req d'url courants; DIGITS = nombres
     #[Route('/{id}', name: 'delete', methods: ['DELETE'], requirements: ['id' => Requirement::DIGITS])]
+    #[IsGranted(RecipeVoter::EDIT, subject: 'recipe')]
     public function remove(Recipe $recipe, EntityManagerInterface $em)
     {
         $em->remove($recipe);
