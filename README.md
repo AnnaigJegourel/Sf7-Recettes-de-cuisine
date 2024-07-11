@@ -92,3 +92,4 @@ Chapitres à voir :
 à corriger:
 
 - Fixtures : titres en arabe !? (voir doc faker & fakerrestaurant : versions ? paramétrage de la locale?)
+- Fixtures : revoir addReference() / setReference()

@@ -6,7 +6,6 @@ use Faker\Factory;
 use App\Entity\Recipe;
 use DateTimeImmutable;
 use App\Entity\Category;
-use App\Entity\User;
 use Doctrine\Persistence\ObjectManager;
 use Doctrine\Bundle\FixturesBundle\Fixture;
 use Doctrine\Common\DataFixtures\DependentFixtureInterface;
