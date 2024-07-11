@@ -31,7 +31,7 @@ class Recipe
     #[Groups(['recipes.index', 'recipes.show', 'recipes.create'])]
     private string $title = '';
 
-    #[ORM\Column(length: 255)]
+    #[ORM\Column(length: 255, nullable:true)]
     #[Assert\Length(min: 5)]
     #[Assert\Regex(
         "/^[a-z0-9]+(?:-[a-z0-9]+)*$/", 
