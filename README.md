@@ -69,16 +69,17 @@ Voir le dossier documentation/ pour plus de détails.
 17. API 1: [Serializer](https://symfony.com/doc/current/components/serializer.html)
 18. API 2 : Désérialisation & MapRequestPayLoad
 19. API 3 : Authenticator stateless
-20. Fixtures : 
+20. Fixtures :
 
     - [DoctrineFixturesBundle](https://symfony.com/bundles/DoctrineFixturesBundle/current/index.html)
     - [Faker](https://fakerphp.org/)
+
+21. [Voters](https://symfony.com/doc/current/security/voters.html)
 
 ## TO DO
 
 Chapitres à voir :
 
-- Voters
 - Evénements
 
 - Symfony UX
@@ -92,4 +93,5 @@ Chapitres à voir :
 à corriger:
 
 - Fixtures : titres en arabe !? (voir doc faker & fakerrestaurant : versions ? paramétrage de la locale?)
-- Fixtures : revoir addReference() / setReference()
+
+JE SUIS EN TRAIN DE TRAVAILLER SUR LA BRANCHE MASTER : FUSIONNER VERS DEV !!
