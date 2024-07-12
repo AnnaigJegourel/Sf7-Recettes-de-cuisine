@@ -14,6 +14,7 @@ class RecipeVoter extends Voter
     public const VIEW = 'RECIPE_VIEW';
     public const CREATE = 'RECIPE_CREATE';
     public const LIST = 'RECIPE_LIST';
+    public const LIST_ALL = 'RECIPE_ALL';
 
 
     /**
@@ -29,7 +30,7 @@ class RecipeVoter extends Voter
         // https://symfony.com/doc/current/security/voters.html
         return
             //si on a la permission CREATE ou LIST et pas de sujet
-            in_array($attribute, [self::CREATE, self::LIST]) ||
+            in_array($attribute, [self::CREATE, self::LIST, self::LIST_ALL]) ||
             //si on a une des permissions définies ci-dessus ET qu'on vérifie la permission sur une instance de Recipe, renvoie true
             (
                 in_array($attribute, [self::EDIT, self::VIEW])
@@ -73,6 +74,7 @@ class RecipeVoter extends Voter
                 break;
         }
 
+        //retour par défaut, donc pour LIST_ALL qui n'est pas défini ci-dessus
         return false;
     }
 }
