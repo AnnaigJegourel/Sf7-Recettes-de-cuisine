@@ -25,7 +25,7 @@ class RecipeRepository extends ServiceEntityRepository
     {
         $builder = $this->createQueryBuilder('r')->leftJoin('r.category', 'c')->select('r', 'c');
         if($userId) {
-            $builder = $builder->andWhere('r.user = :user')
+            $builder = $builder->andWhere('r.author = :user')
                 ->setParameter('user', $userId);
         }
         //fonction prédéfinie dans le paginator knp
