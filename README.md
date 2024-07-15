@@ -128,12 +128,11 @@ You can also connect with ADMIN ROLE using usernam: "admin" and password: "admin
     - [Faker](https://fakerphp.org/)
 
 21. [Voters](https://symfony.com/doc/current/security/voters.html)
+22. [Evénements](https://symfony.com/doc/current/event_dispatcher.html)
 
 ## TO DO
 
 Chapitres à voir :
-
-- Evénements
 
 - Symfony UX
 - Formulaires imbriqués
@@ -145,6 +144,4 @@ Chapitres à voir :
 
 à corriger:
 
-- Fixtures : titres en arabe !? (voir doc faker & fakerrestaurant : versions ? paramétrage de la locale?)
-
-JE SUIS EN TRAIN DE TRAVAILLER SUR LA BRANCHE MASTER : FUSIONNER VERS DEV !!
+- Fixtures : titres en persan !? (voir doc faker & fakerrestaurant : versions ? paramétrage de la locale?)
