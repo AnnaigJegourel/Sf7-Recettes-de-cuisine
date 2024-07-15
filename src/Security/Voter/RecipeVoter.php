@@ -4,6 +4,7 @@ namespace App\Security\Voter;
 
 use App\Entity\Recipe;
 use App\Entity\User;
+use Symfony\Bundle\SecurityBundle\Security;
 use Symfony\Component\Security\Core\Authentication\Token\TokenInterface;
 use Symfony\Component\Security\Core\Authorization\Voter\Voter;
 
@@ -16,6 +17,10 @@ class RecipeVoter extends Voter
     public const LIST = 'RECIPE_LIST';
     public const LIST_ALL = 'RECIPE_ALL';
 
+    public function __construct(private readonly Security $security)
+    {
+        
+    }
 
     /**
      * dit si on supporte ou non cette permission
@@ -65,6 +70,10 @@ class RecipeVoter extends Voter
                 return $subject->getAuthor()->getId() === $user->getId();
                 break;
 
+            case self::LIST_ALL:
+                return $this->security->isGranted('ROLE_ADMIN');
+                break;
+            
             case self::VIEW:
             case self::LIST:
             case self::CREATE:
