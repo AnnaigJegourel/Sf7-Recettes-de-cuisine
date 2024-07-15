@@ -145,6 +145,13 @@ Chapitres à voir :
 
 à corriger:
 
-- Fixtures : titres en arabe !? (voir doc faker & fakerrestaurant : versions ? paramétrage de la locale?)
+- Fixtures : titres en persan !? (voir doc faker & fakerrestaurant : versions ? paramétrage de la locale?)
 
-JE SUIS EN TRAIN DE TRAVAILLER SUR LA BRANCHE MASTER : FUSIONNER VERS DEV !!
+````mermaid
+flowchart TD
+    A[Christmas] -->|Get money| B(Go shopping)
+    B --> C{Let me think}
+    C -->|One| D[Laptop]
+    C -->|Two| E[iPhone]
+    C -->|Three| F[Car]
+````
