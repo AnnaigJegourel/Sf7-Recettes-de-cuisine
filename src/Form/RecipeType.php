@@ -12,6 +12,7 @@ use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 use Symfony\Component\Form\Event\PostSubmitEvent;
 use Symfony\Component\String\Slugger\AsciiSlugger;
+use Symfony\Component\Validator\Constraints\Image;
 use Symfony\Component\Validator\Constraints\Regex;
 use Symfony\Component\Validator\Constraints\Length;
 use Symfony\Component\OptionsResolver\OptionsResolver;
@@ -20,7 +21,7 @@ use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\Validator\Constraints\Sequentially;
 use Symfony\Component\Form\Extension\Core\Type\SubmitType;
 use Symfony\Component\Form\Extension\Core\Type\TextareaType;
-use Symfony\Component\Validator\Constraints\Image;
+use Symfony\Component\Form\Extension\Core\Type\CollectionType;
 
 class RecipeType extends AbstractType
 {
@@ -83,13 +84,19 @@ class RecipeType extends AbstractType
                 //pour avoir des boutons radio
                 //'expanded' => 'true',
                 'autocomplete' => 'true'
-            ])
- */            ->add('content', TextareaType::class, [
+            ]) */
+            ->add('content', TextareaType::class, [
                 'empty_data' => ''
             ])
             ->add('duration')
             // Création du bouton submit
             //on peut préciser le type de champ, modifier le label par défaut
+            ->add('quantities', CollectionType::class, [
+                'entry_type' => QuantityType::class,    //nom de la classe représentant chacune de ces entrées
+                'allow_add' => true,
+                'by_reference' => false,    //utiliser add() et remove() et non modifier la collection
+                'entry_options' => ['label' => false]
+            ])
             ->add('save', SubmitType::class, [
                 'label' => "Envoyer"
             ])
@@ -100,6 +107,8 @@ class RecipeType extends AbstractType
             //->addEventListener(FormEvents::POST_SUBMIT, $this->attachTimestamps(...))
         ;
     }
+
+
 
 /*     public function autoSlug(PreSubmitEvent $event): void
     {

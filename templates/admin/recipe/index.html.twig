@@ -25,7 +25,8 @@ syntaxe raccourcie#}
 
         <tbody>
             {% for recipe in recipes %}
-            <tr id="row_recipe_{{ recipeId }}">
+            {# <tr id="row_recipe_{{ recipeId }}"> #}
+            <tr>
                 <td>{{ recipe.id }}</td>
                 <td>
                     {# <a href={{ url('admin.recipe.show', {id: recipe.id, slug: recipe.slug}) }}>{{ recipe.title() }}</a> #}

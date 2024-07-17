@@ -14,7 +14,7 @@
 
     {# la fonction qui permet de passer un formulaire + la variable envoyée par le contrôleur #}
     <turbo-frame id="recipe_{{recipe.id}}">
-        {{ form(form, {action: path('admin.recipe.edit', id: recipe.id)}) }}
+        {{ form(form, {action: path('admin.recipe.edit', {id: recipe.id})}) }}
     </turbo-frame>
 
 {#     Gérer la mise en forme dans Twig
