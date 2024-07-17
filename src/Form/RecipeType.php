@@ -74,7 +74,9 @@ class RecipeType extends AbstractType
                         message: "Certains caractères ne sont pas acceptés."
                     )
                 ]) */ 
-            ->add('category', EntityType::class, [
+            ->add('category', CategoryAutocompleteField::class)
+            //Champ entity type classique
+/*             ->add('category', EntityType::class, [
                 'class' => Category::class,
                 //menu de labels corresopndant au champ name
                 'choice_label' => 'name',
@@ -82,7 +84,7 @@ class RecipeType extends AbstractType
                 //'expanded' => 'true',
                 'autocomplete' => 'true'
             ])
-            ->add('content', TextareaType::class, [
+ */            ->add('content', TextareaType::class, [
                 'empty_data' => ''
             ])
             ->add('duration')
