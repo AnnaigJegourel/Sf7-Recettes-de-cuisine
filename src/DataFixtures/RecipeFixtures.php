@@ -7,6 +7,8 @@ use App\Entity\Recipe;
 use DateTimeImmutable;
 use App\Entity\Category;
 use App\DataFixtures\UserFixtures;
+use App\Entity\Ingredient;
+use App\Entity\Quantity;
 use Doctrine\Persistence\ObjectManager;
 use Doctrine\Bundle\FixturesBundle\Fixture;
 use FakerRestaurant\Provider\ar_SA\Restaurant;
@@ -24,6 +26,34 @@ class RecipeFixtures extends Fixture implements DependentFixtureInterface
         //on appelle les bundle & bibliothèque tiers qui construisent de fausses données
         $faker = Factory::create('de_DE');
         $faker->addProvider(new Restaurant($faker));
+
+        //on crée des ingrédients
+        $ingredients = array_map(fn(string $name) => (new Ingredient)
+        ->setName($name)
+        ->setSlug(strtolower($this->slugger->slug($name))), [
+            'farine', 
+            'eau', 
+            'épices', 
+            'yaourt', 
+            'sucre', 
+            'huile', 
+            'fruits secs', 
+            'levure chimique',
+            'pommes',
+            'poires',
+            'carottes',
+            'chou ravi'
+        ]);
+        $units = [
+            'g', 
+            'mL', 
+            'cuillère', 
+            'pincée', 
+            'verre'
+        ];
+        foreach ($ingredients as $ingredient) {
+            $manager->persist($ingredient);
+        }
 
         //on crée des catégories
         $categories = ['Plat chaud', 'Dessert', 'Entrée', 'Goûter'];
@@ -55,6 +85,13 @@ class RecipeFixtures extends Fixture implements DependentFixtureInterface
                 //faker prend un chiffre aléatoire et le concatène pour obtenir le nom
                 ->setAuthor($this->getReference('USER' . $faker->numberBetween(1, 10)))
                 ->setDuration($faker->numberBetween(2, 60));
+            foreach($faker->randomElement($ingredients, $faker->numberBetween(2, 5)) as $ingredient) {
+                $recipe->addQuantity((new Quantity)
+                    ->setQuantity($faker->numberBetween(1, 250))
+                    ->setUnit($faker->randomElement($units))
+                    ->setIngredient($ingredient)
+                );
+            }
             $manager->persist($recipe);
         }
 
