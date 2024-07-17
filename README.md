@@ -130,12 +130,16 @@ You can also connect with ADMIN ROLE using usernam: "admin" and password: "admin
 
 21. [Voters](https://symfony.com/doc/current/security/voters.html)
 22. [Evénements](https://symfony.com/doc/current/event_dispatcher.html)
+23. [Symfony UX](https://ux.symfony.com/):
+
+    - Turbo
+    - Autocomplete
+    - Toggle Password
 
 ## TO DO
 
 Chapitres à voir :
 
-- Symfony UX
 - Formulaires imbriqués
 - Messenger
 
@@ -145,6 +149,7 @@ Chapitres à voir :
 
 à corriger:
 
+- RecipeController l.60: getId()  n'existe pas (mais marche quand même?!)
 - Fixtures : titres en persan !? (voir doc faker & fakerrestaurant : versions ? paramétrage de la locale?)
 - EventListener : quand le DogCatEventListener est activé, plus rien d'autre ne s'affiche que "Dog" !
 - EventSubscriber / Mailer :
@@ -153,3 +158,5 @@ Chapitres à voir :
   - sur onLogin : erreur
 
     ``Expected response code "250/251/252" but got code "554", with message "554 5.7.1 <admin@doe.fr>: Relay access denied".``
+
+- turbo-frame / affichage de l'édition de recettes

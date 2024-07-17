@@ -25,11 +25,13 @@ syntaxe raccourcie#}
 
         <tbody>
             {% for recipe in recipes %}
-            <tr>
+            <tr id="row_recipe_{{ recipeId }}">
                 <td>{{ recipe.id }}</td>
                 <td>
                     {# <a href={{ url('admin.recipe.show', {id: recipe.id, slug: recipe.slug}) }}>{{ recipe.title() }}</a> #}
-                    <a href={{ url('admin.recipe.edit', {id: recipe.id}) }}>{{ recipe.title() }}</a>
+                    <turbo-frame id="recipe_{{recipe.id}}">
+                        <a href={{ url('admin.recipe.edit', {id: recipe.id}) }}>{{ recipe.title() }}</a>
+                    </turbo-frame>
                 </td>
                 <td>{{ recipe.category.name | default('') }}</td>
                 <td>
