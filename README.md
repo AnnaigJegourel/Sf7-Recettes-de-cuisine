@@ -130,7 +130,11 @@ You can also connect with ADMIN ROLE using usernam: "admin" and password: "admin
 
 21. [Voters](https://symfony.com/doc/current/security/voters.html)
 22. [Evénements](https://symfony.com/doc/current/event_dispatcher.html)
-23. [Symfony UX](https://ux.symfony.com/)
+23. [Symfony UX](https://ux.symfony.com/):
+
+    - Turbo
+    - Autocomplete
+    - Toggle Password
 
 ## TO DO
 

@@ -79,7 +79,8 @@ class RecipeType extends AbstractType
                 //menu de labels corresopndant au champ name
                 'choice_label' => 'name',
                 //pour avoir des boutons radio
-                'expanded' => 'true'
+                //'expanded' => 'true',
+                'autocomplete' => 'true'
             ])
             ->add('content', TextareaType::class, [
                 'empty_data' => ''
