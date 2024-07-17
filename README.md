@@ -130,12 +130,12 @@ You can also connect with ADMIN ROLE using usernam: "admin" and password: "admin
 
 21. [Voters](https://symfony.com/doc/current/security/voters.html)
 22. [Evénements](https://symfony.com/doc/current/event_dispatcher.html)
+23. [Symfony UX](https://ux.symfony.com/)
 
 ## TO DO
 
 Chapitres à voir :
 
-- Symfony UX
 - Formulaires imbriqués
 - Messenger
 
@@ -153,3 +153,5 @@ Chapitres à voir :
   - sur onLogin : erreur
 
     ``Expected response code "250/251/252" but got code "554", with message "554 5.7.1 <admin@doe.fr>: Relay access denied".``
+
+- turbo-frame / affichage de l'édition de recettes

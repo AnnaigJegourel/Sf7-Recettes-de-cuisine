@@ -13,7 +13,9 @@
         {# <p><img src="/images/recipes/{{ recipe.thumbnail }}" alt=""></p> #}
 
     {# la fonction qui permet de passer un formulaire + la variable envoyée par le contrôleur #}
-    {{ form(form) }}
+    <turbo-frame id="recipe_{{recipe.id}}">
+        {{ form(form, {action: path('admin.recipe.edit', id: recipe.id)}) }}
+    </turbo-frame>
 
 {#     Gérer la mise en forme dans Twig
     {{ form_start(form) }}
