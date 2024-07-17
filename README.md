@@ -7,13 +7,13 @@ Découverte de Symfony 7 en suivant le tuto / la formation YouTube de Grafikart
 Les différents thèmes correspondent aux différentes pull requests (sauf les 2 premiers).
 Voir le détail des commit constituant chaque pull request : sur la branche dev.
 
-Voir le dossier documentation/ pour plus de détails.
+Voir le dossier [documentation](documentation) pour plus de détails.
 
 ## Configuration / Technologies ⚙️
 
 Apache  
 MySQL / MariaDB  
-PHP >= 8.2
+PHP >= 8.2  
 Symfony 7.1
 
 ## Installation 🧑🏻‍🔧
@@ -51,7 +51,7 @@ Symfony 7.1
 
 ### Launching the project
 
-7. Launch the Symfony server running:
+8. Launch the Symfony server running:
 
     ````text
     symfony server
@@ -85,6 +85,7 @@ You can also connect with ADMIN ROLE using usernam: "admin" and password: "admin
 #### E-mails
 
 <https://symfony.com/doc/current/reference/constraints/Email.html>
+
 <https://symfony.com/doc/current/mailer.html>
 
 ### Regex
@@ -145,3 +146,10 @@ Chapitres à voir :
 à corriger:
 
 - Fixtures : titres en persan !? (voir doc faker & fakerrestaurant : versions ? paramétrage de la locale?)
+- EventListener : quand le DogCatEventListener est activé, plus rien d'autre ne s'affiche que "Dog" !
+- EventSubscriber / Mailer :
+
+  - les e-mails ne sont pas envoyés? tester à SB (en fait l'événement ne semble pas envoyé ou le subscriber ne le capte pas)
+  - sur onLogin : erreur
+
+    ``Expected response code "250/251/252" but got code "554", with message "554 5.7.1 <admin@doe.fr>: Relay access denied".``
