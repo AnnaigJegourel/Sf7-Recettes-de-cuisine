@@ -147,4 +147,9 @@ Chapitres à voir :
 
 - Fixtures : titres en persan !? (voir doc faker & fakerrestaurant : versions ? paramétrage de la locale?)
 - EventListener : quand le DogCatEventListener est activé, plus rien d'autre ne s'affiche que "Dog" !
-- EventSubscriber / Mailer : les e-mails ne sont pas envoyés? tester à SB (en fait l'événement ne semble pas envoyé ou le subscriber ne le capte pas) --> tester en codant l'envoi d'e mail à login (cf. 12e minute de la vidéo)
+- EventSubscriber / Mailer :
+
+  - les e-mails ne sont pas envoyés? tester à SB (en fait l'événement ne semble pas envoyé ou le subscriber ne le capte pas)
+  - sur onLogin : erreur
+
+    ``Expected response code "250/251/252" but got code "554", with message "554 5.7.1 <admin@doe.fr>: Relay access denied".``
