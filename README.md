@@ -145,6 +145,7 @@ Chapitres à voir :
 
 à corriger:
 
+- RecipeController l.60: getId()  n'existe pas (mais marche quand même?!)
 - Fixtures : titres en persan !? (voir doc faker & fakerrestaurant : versions ? paramétrage de la locale?)
 - EventListener : quand le DogCatEventListener est activé, plus rien d'autre ne s'affiche que "Dog" !
 - EventSubscriber / Mailer :
