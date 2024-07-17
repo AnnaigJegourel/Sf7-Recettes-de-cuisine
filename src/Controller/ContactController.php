@@ -3,10 +3,12 @@
 namespace App\Controller;
 
 use App\DTO\ContactDTO;
+use App\Event\ContactRequestEvent;
 use App\Form\ContactType;
 use Exception; //not the right one?
 use Symfony\Bridge\Twig\Mime\TemplatedEmail;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
+use Symfony\Component\EventDispatcher\EventDispatcherInterface;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Mailer\MailerInterface;
@@ -15,21 +17,31 @@ use Symfony\Component\Routing\Attribute\Route;
 class ContactController extends AbstractController
 {
     #[Route('/contact', name: 'contact')]
-    public function contact(Request $request, MailerInterface $mailer): Response
+    public function contact(Request $request, MailerInterface $mailer, EventDispatcherInterface $dispatcher): Response
     {
         $data = new ContactDTO;
 
-        //Donner de test, à supprimer
-        $data->name = 'Jane Doe';
+        //Données de test, à supprimer
+/*         $data->name = 'Jane Doe';
         $data->email = 'jane@doe.be';
         $data->message = 'Super site';
-        
+ */        
         $form = $this->createForm(ContactType::class, $data);
         $form->handleRequest($request);
 
         if($form->isSubmitted() && $form->isValid()) {
-
+            //dd($data); OK
             try {
+                //dd($dispatcher); OK
+                //dd(new ContactRequestEvent($data)); OK
+                dd($dispatcher->dispatch(new ContactRequestEvent($data))); //ça ne dispatche pas?!
+                $this->addFlash('success', "Votre e-mail a bien été envoyé");
+            } catch (Exception $e){
+                $this->addFlash('danger', "Impossible d'envoyer votre e-mail");
+            }
+            
+            //Création de l'e-mail sans utilisation d'événement
+/*             try {
                 //Création de l'email avec un template Twig
                 $mail = (new TemplatedEmail())
                     //->to($data->service)
@@ -51,7 +63,7 @@ class ContactController extends AbstractController
             } catch (Exception $e) {
                 $this->addFlash('danger', "Impossible d'envoyer votre e-mail");
             }
-        }
+ */        }
 
         return $this->render('contact/contact.html.twig', [
             'form' => $form,
