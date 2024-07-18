@@ -1,18 +1,28 @@
 import { Controller } from '@hotwired/stimulus';
 
 export default class extends Controller {
+
+
+    //possibilité de modifier les labels
+    static values = {
+        addLabel : String,
+        deleteLabel : String
+    }
+
+
     connect() {
         //on calcule l'index de l'élément = nb d'éléments enfants
         this.index = this.addElement.childElementCount
         //on crée un bouton
         const btn = document.createElement('button')
         btn.setAttribute('class', 'btn btn-secondary')
-        btn.innerText = 'Ajouter un élément'
+        btn.innerText = this.addLabelValue || 'Ajouter un élément'
         btn.setAttribute('type', 'button')
         btn.addEventListener('click', this.addElement)
         //on rajoute le bouton à la fin de la liste(?)
         this.addElement.append(btn)
     }
+
 
     //méthode appelée au clic sur le bouton
     /**
@@ -41,6 +51,7 @@ export default class extends Controller {
         e.currentTarget.insertAdjacentElement('beforebegin', element)
     }
 
+
     /**
      * 
      * @param {HTMLElement} item 
@@ -48,7 +59,7 @@ export default class extends Controller {
     addDeleteButton = (item) => {
         const btn = document.createElement('button')
         btn.setAttribute('class', 'btn btn-secondary')
-        btn.innerText = "Suprrimer l'élément"
+        btn.innerText = this.deleteLabelValue || "Suprrimer l'élément"
         btn.setAttribute('type', 'button')
         //au niveau de l'item, ajouter ce bouton
         item.append(btn)
