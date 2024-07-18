@@ -29,10 +29,33 @@ export default class extends Controller {
             this.element.dataset['prototype'].replaceAll('__name__', this.index)
         ).firstElementChild //il n'y a qu'un élément(?); je le récupère pour avoir un élément et non un fragment(?)
 
+        //trouver tous les éléments enfants & y ajouter le bouton de suppression
+        this.element.childNodes.forEach(this.addDeleteButton)
+        //ajouter le bouton de suppression(?)
+        this.addDeleteButton(element)
+
         //on incrément l'index puisqu'on a un élément en plus
         this.index++
 
         //prendre la cible courante et insérer notre élément juste avant le bouton
         e.currentTarget.insertAdjacentElement('beforebegin', element)
+    }
+
+    /**
+     * 
+     * @param {HTMLElement} item 
+     */
+    addDeleteButton = (item) => {
+        const btn = document.createElement('button')
+        btn.setAttribute('class', 'btn btn-secondary')
+        btn.innerText = "Suprrimer l'élément"
+        btn.setAttribute('type', 'button')
+        //au niveau de l'item, ajouter ce bouton
+        item.append(btn)
+        //au clic sur ce bouton, supprimer l'élément en question
+        btn.addEventListener('click', e => {
+            e.preventDefault
+            item.remove
+        })
     }
 }

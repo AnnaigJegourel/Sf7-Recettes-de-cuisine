@@ -94,6 +94,7 @@ class RecipeType extends AbstractType
             ->add('quantities', CollectionType::class, [
                 'entry_type' => QuantityType::class,    //nom de la classe représentant chacune de ces entrées
                 'allow_add' => true,
+                'allow_delete' => true,
                 'by_reference' => false,    //utiliser add() et remove() et non modifier la collection
                 'entry_options' => ['label' => false],
                 //option permettant d'ajouter des attributs html : 

@@ -161,3 +161,4 @@ Chapitres à voir :
     ``Expected response code "250/251/252" but got code "554", with message "554 5.7.1 <admin@doe.fr>: Relay access denied".``
 
 - turbo-frame / affichage de l'édition de recettes
+- affichage du QuantityType imbriqué dans RecipeType
