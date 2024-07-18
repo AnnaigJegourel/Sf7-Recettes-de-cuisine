@@ -34,7 +34,7 @@ class ContactController extends AbstractController
             try {
                 //dd($dispatcher); OK
                 //dd(new ContactRequestEvent($data)); OK
-                dd($dispatcher->dispatch(new ContactRequestEvent($data))); //ça ne dispatche pas?!
+                $dispatcher->dispatch(new ContactRequestEvent($data)); //ça ne dispatche pas?!
                 $this->addFlash('success', "Votre e-mail a bien été envoyé");
             } catch (Exception $e){
                 $this->addFlash('danger', "Impossible d'envoyer votre e-mail");
