@@ -99,7 +99,7 @@ class RecipeType extends AbstractType
                 'entry_options' => ['label' => false],
                 //option permettant d'ajouter des attributs html : 
                 'attr' => [
-                    'data-controller' => 'form-collection', //nom du contrôleur sans la partie standard '_controller.js'
+                    //'data-controller' => 'form-collection', //nom du contrôleur sans la partie standard '_controller.js'
                     'data-form-collection-add-label-value' => "Ajouter un ingrédient",
                     'data-form-collection-delete-label-value' => "Supprimer un ingrédient"
                 ]
