@@ -95,7 +95,11 @@ class RecipeType extends AbstractType
                 'entry_type' => QuantityType::class,    //nom de la classe représentant chacune de ces entrées
                 'allow_add' => true,
                 'by_reference' => false,    //utiliser add() et remove() et non modifier la collection
-                'entry_options' => ['label' => false]
+                'entry_options' => ['label' => false],
+                //option permettant d'ajouter des attributs html : 
+                'attr' => [
+                    'data-controller' => 'form-collection' //nom du contrôleur sans la partie standard '_controller.js'
+                ]
             ])
             ->add('save', SubmitType::class, [
                 'label' => "Envoyer"
