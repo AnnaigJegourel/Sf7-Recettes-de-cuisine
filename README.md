@@ -137,12 +137,14 @@ You can also connect with ADMIN ROLE using usernam: "admin" and password: "admin
     - Toggle Password
 
 24. Formulaires imbriqués
+25. Messenger
+
+    - [Messenger Doc](https://symfony.com/doc/current/messenger.html#installation)
+    - [Process Doc](https://symfony.com/doc/current/components/process.html#installation)
 
 ## TO DO
 
 Chapitres à voir :
-
-- Messenger
 
 - Internationalisation
 - Hébergement Infomaniak
