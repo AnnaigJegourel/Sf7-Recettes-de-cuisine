@@ -5,6 +5,7 @@
 {% block body %}
 
     <h1>{{ recipe.title }}</h1>
+    <img src="{{ vich_uploader_asset(recipe, 'thumbnailFile') }}" alt="" width="400">
     {# filtre pour que les sauts de ligne soient transférés #}
     <p>{{ recipe.content |nl2br}}</p>
 
