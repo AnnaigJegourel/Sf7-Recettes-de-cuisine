@@ -6,7 +6,7 @@
 
 33min :
 
-v v v v v 6 7 8 9
+v v v v v v 7 8 9
 1 2 3 4 5 6 7 8 9   = 18
 1 2 3 4 5 6 7 8 9   = 27
 1 2 3 4 5 6         = 33
@@ -35,3 +35,16 @@ Par exemple, messages.fr.yaml (ou autre extension) = pour traduire en français
 
 ### Traduction de chaînes de caractères plus "arbitraires" (texte d'accueil...)
 
+Solution 1 : utiliser le TAG "trans" dans templates/home/index.html.twig et ajouter la traduction dans translations/.
+
+```twig
+    {% trans %}Welcome Home!{% endtrans %}
+````
+
+Solution 2 : utiliser le FILTRE "trans" dans templates/home/index.html.twig et ajouter la traduction dans translations/.
+
+```twig
+    {{ 'Nice to see you.' | trans }}
+````
+
+Solution 3 : Injecter TranslatorInterface au niveau du contrôleur
