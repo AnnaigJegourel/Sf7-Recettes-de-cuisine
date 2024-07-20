@@ -48,3 +48,4 @@ Solution 2 : utiliser le FILTRE "trans" dans templates/home/index.html.twig et a
 ````
 
 Solution 3 : Injecter TranslatorInterface au niveau du contrôleur
+Puis utiliser la méthode trans('IDduMessage'). ---BUG ?!---
