@@ -4,12 +4,13 @@
 
 ## Internationalisation
 
-33min :
+v v v v v v v v v   = 9 min
 
-v v v v v v 7 8 9
-1 2 3 4 5 6 7 8 9   = 18
-1 2 3 4 5 6 7 8 9   = 27
-1 2 3 4 5 6         = 33
+1 2 3 4 5 6 7 8 9   = 18 min
+
+1 2 3 4 5 6 7 8 9   = 27 min
+
+1 2 3 4 5 6         = 33 min
 
 Par défaut, le système va chercher des traductions pour les libellés.
 
@@ -39,13 +40,36 @@ Solution 1 : utiliser le TAG "trans" dans templates/home/index.html.twig et ajou
 
 ```twig
     {% trans %}Welcome Home!{% endtrans %}
-````
+```
 
 Solution 2 : utiliser le FILTRE "trans" dans templates/home/index.html.twig et ajouter la traduction dans translations/.
 
 ```twig
     {{ 'Nice to see you.' | trans }}
-````
+```
 
 Solution 3 : Injecter TranslatorInterface au niveau du contrôleur
 Puis utiliser la méthode trans('IDduMessage'). ---BUG ?!---
+
+### Générer les traductions de manière dynamique
+
+```bash
+php bin/console translation:extract --dump-messages fr
+```
+
+Il scanne tout le code source et génère toutes les clés de traductions (validation, etc.).
+On peut lui demander de l'extraire dans un fichier yaml (sera prérempli par Symfony) :
+
+```bash
+php bin/console translation:extract --force fr --format=yaml
+```
+
+Crée un fichier par "domaine" : validators, security... mais n'a pas été capable de scanner les formulaires car ce sont de simples chaînes de caractères.`
+
+On peut y remédier en utilisant la fonction Symfony globale t() dans les libellés de formulaires : cela crée un objet TranslatableMessage qui sera reconnu et extrait dans les yaml :
+
+```php
+'label' => t('contactForm.submit')
+```
+
+Il est recommandé d'utiliser cette fonction. Néanmoins elle a des bugs dans les version de Symfony 7.0 et 7.1, cela devrait sans doute être résolu dans la future version stable 7.4

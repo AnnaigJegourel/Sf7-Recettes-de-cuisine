@@ -1,6 +1,8 @@
+vich_uploader.form_label.delete_confirm: 'Supprimer?'
+vich_uploader.link.download: Télécharger
 Name: Prénom
-contactForm:
-  email: Courriel
-Welcome Home!: Bienvenue à la maison !
-Nice to see you.: ça fait plaiz.
-Love U: Bisou*
+contactForm.email: Courriel
+contactForm.submit: Envoyer
+'Welcome Home!': 'Bienvenue à la maison !'
+'Nice to see you.': 'ça fait plaiz.'
+'Love U': 'Bisou*'
