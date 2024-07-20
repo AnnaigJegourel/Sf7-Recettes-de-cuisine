@@ -21,7 +21,8 @@ class ContactType extends AbstractType
                 'empty_data' => ''
             ])
             ->add('email', EmailType::class, [
-                'empty_data' => ''
+                'empty_data' => '',
+                'label' => 'contactForm.email'
             ])
             ->add('message', TextareaType::class, [
                 'empty_data' => ''
