@@ -6,11 +6,13 @@
 
 v v v v v v v v v   = 9 min
 
-1 2 3 4 5 6 7 8 9   = 18 min
+v v v v 14 15 16 17 18   = 18 min
 
 1 2 3 4 5 6 7 8 9   = 27 min
 
 1 2 3 4 5 6         = 33 min
+
+[Documentation](https://symfony.com/doc/current/translation.html)
 
 Par défaut, le système va chercher des traductions pour les libellés.
 
@@ -25,7 +27,7 @@ config/packages/translation.yaml pour piloter la traduction
   - le fallback,
   - les providers qui permettent d'utiliser des traductions automatiques.
 
-créer les fichiers de traduction dans /translation
+créer les fichiers de traduction dans translation/s
 
 à nommer en fonction du domaine associé (cf. Profiler > translation: messages pour les libellés ici)
 <img src="Profiler1.png" alt="">
@@ -73,3 +75,49 @@ On peut y remédier en utilisant la fonction Symfony globale t() dans les libell
 ```
 
 Il est recommandé d'utiliser cette fonction. Néanmoins elle a des bugs dans les version de Symfony 7.0 et 7.1, cela devrait sans doute être résolu dans la future version stable 7.4
+
+### Fichier intl-icu
+
+cf. [Documentation Sf/icu](https://symfony.com/doc/current/reference/formats/message_format.html)
+
+Généré par la commande ci-dessus parfois, permet de gérer un format supplémentaire :
+
+- Traduction du singulier et du pluriel si j'ai un nombre variable.
+- Traduction des genres
+
+Dans le template :
+
+```twig
+{{ "home_recipe_count" | trans({count : 100}) }}
+````
+
+Dans le fichier intl-icu :
+
+```php
+home_recipe_count: >-
+  {count, plural,
+    =0    {Aucune recette}
+    =1    {Une recette}
+    other {# recettes}
+  }
+```
+
+- cas où je veux mettre une info supplémentaire (ici le nom) :
+
+Dans le template :
+
+```twig
+{{ 'Nice to see you' | trans({name: 'Jane'}) }}
+````
+
+Dans le fichier "normal" des traductions :
+
+```php
+'Nice to see you ': 'ça fait plaiz, name'
+```
+
+### Comment changer de manière dynamique les traductions à utiliser ?
+
+#### 1er cas : changer en fonction d'une information utilisateur
+
+- ajouter la propriété $locale à l'entité User

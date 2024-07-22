@@ -3,8 +3,12 @@
 {% block title %}Home Sweet Home{% endblock %}
 
 {% block body %}
-    {% trans %}Welcome Home!{% endtrans %}
-    {{ 'Nice to see you.' | trans }}
-    {{ 'Love U' | trans }}
-    <p>Love U</p>
+    <h1>{% trans %}Welcome Home!{% endtrans %}</h1>
+    <div>
+        <h2>{{ 'Nice to see you ' | trans({name: 'Jane'}) }}</h2>
+        <p>{{ 'Love U' | trans }}<p>
+        <p>Love U</p>
+        {# ajouter code dans intl-icu pour que ça soit traduit #}
+        <p>{{ "home_recipe_count" | trans({count : 100}) }}</p>
+    </div>
 {% endblock %}
