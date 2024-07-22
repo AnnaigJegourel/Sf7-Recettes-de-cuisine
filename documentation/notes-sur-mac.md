@@ -6,7 +6,7 @@
 
 v v v v v v v v v   = 9 min
 
-v v v v 14 15 16 17 18   = 18 min
+v v v v v v v v v   = 18 min
 
 1 2 3 4 5 6 7 8 9   = 27 min
 
@@ -16,7 +16,9 @@ v v v v 14 15 16 17 18   = 18 min
 
 Par défaut, le système va chercher des traductions pour les libellés.
 
-### Traduction des libellés de formulaires
+### Générer les traductions
+
+#### Traduction des libellés de formulaires
 
 config/packages/translation.yaml pour piloter la traduction
 
@@ -36,7 +38,7 @@ Par exemple, messages.fr.yaml (ou autre extension) = pour traduire en français
 - directement le libellé (Prénom)
 - ou sa variable défini dans le type (Email : label = contactForm.email, traduction 'courriel')
 
-### Traduction de chaînes de caractères plus "arbitraires" (texte d'accueil...)
+#### Traduction de chaînes de caractères plus "arbitraires" (texte d'accueil...)
 
 Solution 1 : utiliser le TAG "trans" dans templates/home/index.html.twig et ajouter la traduction dans translations/.
 
@@ -53,7 +55,7 @@ Solution 2 : utiliser le FILTRE "trans" dans templates/home/index.html.twig et a
 Solution 3 : Injecter TranslatorInterface au niveau du contrôleur
 Puis utiliser la méthode trans('IDduMessage'). ---BUG ?!---
 
-### Générer les traductions de manière dynamique
+#### Générer les traductions de manière dynamique
 
 ```bash
 php bin/console translation:extract --dump-messages fr
@@ -76,7 +78,7 @@ On peut y remédier en utilisant la fonction Symfony globale t() dans les libell
 
 Il est recommandé d'utiliser cette fonction. Néanmoins elle a des bugs dans les version de Symfony 7.0 et 7.1, cela devrait sans doute être résolu dans la future version stable 7.4
 
-### Fichier intl-icu
+#### Fichier intl-icu
 
 cf. [Documentation Sf/icu](https://symfony.com/doc/current/reference/formats/message_format.html)
 
@@ -116,8 +118,19 @@ Dans le fichier "normal" des traductions :
 'Nice to see you ': 'ça fait plaiz, name'
 ```
 
-### Comment changer de manière dynamique les traductions à utiliser ?
+### Paramétrer le changement de langue
 
 #### 1er cas : changer en fonction d'une information utilisateur
 
-- ajouter la propriété $locale à l'entité User
+Ajouter la propriété $locale à l'entité User :
+
+- la définir à 'fr' par défaut
+- ajouter une option pour que 'fr' par défaut soit en bdd aussi
+
+Utiliser le service LocaleSwitcher :
+
+- choisir à quel moment; ici : lorsque la requête rentre
+- créer le UserLocaleListener, rattaché à kernel.request
+- le customiser avec un constructeur injectant le composant Security & LocaleSwitcher (du composant Translation)
+- dans onKernelRequest(), récupérer l'utilisateur avec Security
+- ...et changer la locale de l'utilisateur avec setLocale() de LocaleSwitcher
