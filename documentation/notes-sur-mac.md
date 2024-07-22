@@ -4,13 +4,13 @@
 
 ## Internationalisation
 
-v v v v v v v v v   = 9 min
+v v v    v v v      v v v   = 9 min
 
-v v v v v v v v v   = 18 min
+v v v    v v v      v v v   = 18 min
 
-1 2 3 4 5 6 7 8 9   = 27 min
+v v v   v v 24   25 26 27   = 27 min
 
-1 2 3 4 5 6         = 33 min
+28 29 30  31 32 33         = 33 min
 
 [Documentation](https://symfony.com/doc/current/translation.html)
 
@@ -159,3 +159,27 @@ controllers:
     requirements:
         _locale: en|fr|de
 ```
+
+### Comment traduire les recettes ? Et la bdd?
+
+1e approche, la plus simple : 1 site pour chaque langue. On a alors 2 bdd et les configurations du .env qui varient d'un site à l'autre.
+
+2e approche : une bdd avec des chaînes de traduction. S'il y a des contenus communs et qu'on les veut traduire d'une langue à l'autre.
+
+On peut tout faire soi-même ... ou utiliser Doctrine Extension Bundle qui permet d'ajouter plein de fonctionnalités à Doctrine : Sluggable (gérer des slugs automatiquement), TimeStampable (gérer dates création et modif dynamiquement), Translatable...
+
+- [Documentation de Symfony](https://symfony.com/bundles/StofDoctrineExtensionsBundle/current/index.html)
+- [Documentation de Doctrine Extensions](https://github.com/doctrine-extensions/DoctrineExtensions)
+- [Documentation de StofDoctrineExtensionBundle](https://github.com/stof/StofDoctrineExtensionsBundle), qui permet de préinstaller DoctrineExtension et d'ajouter les configurations et les listeners automatiquement directement dans Symfony.
+
+Installation :
+
+```bash
+composer require stof/doctrine-extensions-bundle
+```
+
+Configuration : cf. [Documentation](https://symfony.com/bundles/StofDoctrineExtensionsBundle/current/configuration.html)
+
+- "Add the extensions to your mapping" : copier la partie "translatable" et l'ajouter dans doctrine.yaml (orm > mappings) = "voilà comment chercher les éléments qui ont le préfixe "Gedmo\Translatable\Entity".
+
+- "Activate the extensions you want" : dans stof_doctrine_extensions.yaml, ajouter translatable à true.
