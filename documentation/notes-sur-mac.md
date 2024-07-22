@@ -134,3 +134,19 @@ Utiliser le service LocaleSwitcher :
 - le customiser avec un constructeur injectant le composant Security & LocaleSwitcher (du composant Translation)
 - dans onKernelRequest(), récupérer l'utilisateur avec Security
 - ...et changer la locale de l'utilisateur avec setLocale() de LocaleSwitcher
+
+#### 2e cas : approche par url
+
+Préfixer l'url par /fr/ et sinon que la page d'accueil soit en anglais.
+
+Symfony dispose d'un système pour faire cela automatiquement, en local ou en global :
+
+1. Localement :
+
+Dans les contrôleurs, à chaque url, ajouter la locale en paramètre :
+
+```php
+#[Route("/{_locale}", name: "home")]
+```
+
+2. Au niveau globale

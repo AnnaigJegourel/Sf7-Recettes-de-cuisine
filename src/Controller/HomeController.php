@@ -8,7 +8,7 @@ use Symfony\Contracts\Translation\TranslatorInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 
 class HomeController extends AbstractController{
-    #[Route("/", name: "home")]
+    #[Route("/{_locale}", name: "home")]
     function index(TranslatorInterface $translator): Response
     {
         $translator->trans('Love U');
