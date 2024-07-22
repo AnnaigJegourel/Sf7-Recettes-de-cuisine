@@ -141,7 +141,7 @@ Préfixer l'url par /fr/ et sinon que la page d'accueil soit en anglais.
 
 Symfony dispose d'un système pour faire cela automatiquement, en local ou en global :
 
-1. Localement :
+Localement (préfixer chaque route) :
 
 Dans les contrôleurs, à chaque url, ajouter la locale en paramètre :
 
@@ -149,4 +149,13 @@ Dans les contrôleurs, à chaque url, ajouter la locale en paramètre :
 #[Route("/{_locale}", name: "home")]
 ```
 
-2. Au niveau globale
+Globalement (Préfixer toutes les routes de tous les contrôleurs) :
+
+Dans config/routes.yaml :
+
+```yaml
+controllers:
+    prefix: "{_locale}"
+    requirements:
+        _locale: en|fr|de
+```
