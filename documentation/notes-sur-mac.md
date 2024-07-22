@@ -8,7 +8,7 @@ v v v    v v v      v v v   = 9 min
 
 v v v    v v v      v v v   = 18 min
 
-v v v   v v 24   25 26 27   = 27 min
+v v v   v v v   v v 27   = 27 min
 
 28 29 30  31 32 33         = 33 min
 
@@ -160,7 +160,7 @@ controllers:
         _locale: en|fr|de
 ```
 
-### Comment traduire les recettes ? Et la bdd?
+### Comment se passe la traduction en bdd ?
 
 1e approche, la plus simple : 1 site pour chaque langue. On a alors 2 bdd et les configurations du .env qui varient d'un site à l'autre.
 
@@ -183,3 +183,17 @@ Configuration : cf. [Documentation](https://symfony.com/bundles/StofDoctrineExte
 - "Add the extensions to your mapping" : copier la partie "translatable" et l'ajouter dans doctrine.yaml (orm > mappings) = "voilà comment chercher les éléments qui ont le préfixe "Gedmo\Translatable\Entity".
 
 - "Activate the extensions you want" : dans stof_doctrine_extensions.yaml, ajouter translatable à true.
+
+Utilisation :
+
+- dans les entités, ajouter un attribut #[Translatable] aux champs qu'on veut traduire.
+- pour gérer les traductions, il faut une table séparée : elle est créée en faisant une migration
+  
+  ```php
+  $this->addSql('CREATE TABLE ext_translations (id INT AUTO_INCREMENT NOT NULL, locale VARCHAR(8) NOT NULL, ...);
+  ```
+
+  Elle comprend l'ensemble des traductions correspondant à nos modèles.
+  <img src="bdd_ext_translations.png" alt="">
+
+  La version française, correspondant à la locale par défaut, est sauvegardée au niveau de l'entité.

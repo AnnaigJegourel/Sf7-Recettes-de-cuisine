@@ -9,6 +9,7 @@ use App\Validator\BanWord;
 use Doctrine\DBAL\Types\Types;
 use Doctrine\ORM\Mapping as ORM;
 use App\Repository\RecipeRepository;
+use Gedmo\Mapping\Annotation\Translatable;
 use Symfony\Component\HttpFoundation\File\File;
 use Symfony\Component\Validator\Constraints as Assert;
 use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
@@ -31,7 +32,8 @@ class Recipe
     #[Assert\Length(min: 5)]
     #[BanWord()]
     #[Groups(['recipes.index', 'recipes.show', 'recipes.create'])]
-    private string $title = '';
+    #[Translatable()]
+    private ?string $title = '';
 
     #[ORM\Column(length: 255, nullable:true)]
     #[Assert\Length(min: 5)]
@@ -98,7 +100,8 @@ class Recipe
 
     public function getTitle(): string
     {
-        return $this->title;
+        //si nul, renvoyer une chaine de caractères vide
+        return $this->title ?? '';
     }
 
     public function setTitle(string $title): static
