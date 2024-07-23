@@ -147,7 +147,7 @@ You can also connect with ADMIN ROLE using usernam: "admin" and password: "admin
 
 ## TO DO
 
-Chapitres à voir :
+Chapitres restants :
 
 - Hébergement Infomaniak
 - Hébergement O2Switch

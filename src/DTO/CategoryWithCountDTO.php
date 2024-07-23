@@ -8,7 +8,7 @@ class CategoryWithCountDTO
     public function __construct(
         //readonly car initialisées que à la construction et jamais modifiées
         public readonly int $id,
-        public readonly string $name,
+        public readonly ?string $name,
         public readonly int $count
     )
     {
