@@ -21,13 +21,14 @@ class ContactType extends AbstractType
                 'empty_data' => ''
             ])
             ->add('email', EmailType::class, [
-                'empty_data' => ''
+                'empty_data' => '',
+                'label' => 'contactForm.email'
             ])
             ->add('message', TextareaType::class, [
                 'empty_data' => ''
             ])
             ->add('submit', SubmitType::class, [
-                'label' => 'Envoyer'
+                'label' => 'contactForm.submit'
             ])
             ->add('service', ChoiceType::class, [
                 'choices' => [

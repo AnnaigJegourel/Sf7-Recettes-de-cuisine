@@ -4,7 +4,10 @@ namespace App\Repository;
 
 use App\Entity\Category;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
+use Doctrine\ORM\Query;
 use Doctrine\Persistence\ManagerRegistry;
+use Gedmo\Translatable\Query\TreeWalker\TranslationWalker;
+use Gedmo\Translatable\TranslatableListener;
 use Symfony\Config\Doctrine\Orm\EntityManagerConfig\DqlConfig;
 
 /**
@@ -41,6 +44,21 @@ class CategoryRepository extends ServiceEntityRepository
             ->leftJoin('c.recipes', 'r')        //jointure externe avec la relation recipes de l'entité
             ->groupBy('c.id')       //groupe les résultats par identifiant de catégorie, nécessaire pour compter le total de recettes par catégorie
             ->getQuery()
+            //astuce pour retrouver la chaine de traduction
+            ->setHint(
+                Query::HINT_CUSTOM_OUTPUT_WALKER,
+                TranslationWalker::class
+            )
+            //astuce pour changer à la volée la locale pour une query (ici, récupérer les données en anglais)
+/*             ->setHint(
+                TranslatableListener::HINT_TRANSLATABLE_LOCALE,
+                'en'
+            )
+ */            //astuce pour (dés)activer le fallback : s'il ne trouve pas une clé, il utilise la version en bdd directement
+            ->setHint(
+                TranslatableListener::HINT_FALLBACK,
+                1
+            )
             ->getResult();
     }
 

@@ -4,7 +4,9 @@ namespace App\Repository;
 
 use App\Entity\Recipe;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
+use Doctrine\ORM\Query;
 use Doctrine\Persistence\ManagerRegistry;
+use Gedmo\Translatable\Query\TreeWalker\TranslationWalker;
 use Knp\Component\Pager\Pagination\PaginationInterface;
 use Knp\Component\Pager\PaginatorInterface;
 
@@ -30,7 +32,10 @@ class RecipeRepository extends ServiceEntityRepository
         }
         //fonction prédéfinie dans le paginator knp
         return $this->paginator->paginate(
-            $builder,
+            $builder->getQuery()->setHint(
+                Query::HINT_CUSTOM_OUTPUT_WALKER,
+                TranslationWalker::class
+            ),
             $page,
             20,
             //options pour sécuriser le tri par propriété

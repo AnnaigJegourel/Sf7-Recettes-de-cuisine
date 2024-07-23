@@ -143,11 +143,12 @@ You can also connect with ADMIN ROLE using usernam: "admin" and password: "admin
     - [Gotenberg](https://gotenberg.dev/)
     - [Process Doc](https://symfony.com/doc/current/components/process.html#installation)
 
+26. Internationalisation : [Translation Doc](https://symfony.com/doc/current/translation.html)
+
 ## TO DO
 
-Chapitres à voir :
+Chapitres restants :
 
-- Internationalisation
 - Hébergement Infomaniak
 - Hébergement O2Switch
 
